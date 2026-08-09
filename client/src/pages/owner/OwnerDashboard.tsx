@@ -10,7 +10,9 @@ import PendingApproval from "../../components/owner/PendingApproval.tsx";
 import RequestRejected from "../../components/owner/RequestRejected.tsx";
 import OwnerBookings from "../../components/owner/OwnerBookings.tsx";
 import OwnerProfileDetails from "../../components/owner/OwnerProfileDetails.tsx";
-import { dummyMyBookingsData, dummyRestaurant } from "../../assets/assets.ts";
+
+import toast from "react-hot-toast";
+import api from "../../lib/api.ts";
 
 export default function OwnerDashboard() {
     const { logout } = useAppContext();
@@ -20,9 +22,22 @@ export default function OwnerDashboard() {
     const [activeTab, setActiveTab] = useState<"bookings" | "details">("bookings");
 
     const fetchOwnerData = async () => {
-        setRestaurant(dummyRestaurant[0]);
-        setBookings(dummyMyBookingsData);
-        setLoading(false);
+        try {
+            setLoading(true);
+            const res = await api.get("/owner/restaurant")
+            setRestaurant(res.data)
+
+            if(res.data){
+                if(res.data.status === "approved"){
+                    const bookingRes = await api.get("/owner/bookings")
+                    setBookings(bookingRes.data)
+                }
+            }
+        } catch (error:any) {
+            toast.error(error?.response?.data?.message || "Failed to load dashboard data")
+        }finally{
+            setLoading(false)
+        }
     };
 
     useEffect(() => {
