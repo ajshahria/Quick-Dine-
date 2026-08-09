@@ -1,12 +1,20 @@
 import axios from "axios";
 
+const productionApiUrl = "https://quick-dine-server-rust.vercel.app/api";
+const defaultApiUrl = import.meta.env.DEV
+  ? "http://localhost:5000/api"
+  : productionApiUrl;
+const apiUrl = (import.meta.env.VITE_API_URL?.trim() || defaultApiUrl).replace(
+  /\/+$/,
+  "",
+);
 
-const api= axios.create({
-    baseURL:import.meta.env.VITE_API_URL || "http://localhost:5000/api",
-    headers:{
-        "Content-Type":"application/json",
-    }
-})
+const api = axios.create({
+  baseURL: apiUrl,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 api.interceptors.request.use(
   (config) => {
@@ -22,4 +30,4 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-export default api
+export default api;

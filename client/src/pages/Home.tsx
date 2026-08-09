@@ -19,7 +19,7 @@ export default function Home() {
     useEffect(() => {
         const fetchTrending = async () => {
            try {
-            const res = await api.get("/restaurant/featured")
+            const res = await api.get("/restaurants/featured")
             setTrending(res.data)
            } catch (error : any) {
             toast.error(error?.response?.data?.message || error?.message);

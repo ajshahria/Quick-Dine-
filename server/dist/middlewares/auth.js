@@ -7,7 +7,7 @@ export const protect = async (req, res, next) => {
         try {
             token = req.headers.authorization.split(" ")[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const user = await User.findById(decoded.id).select(".password");
+            const user = await User.findById(decoded.id).select("-password");
             if (!user) {
                 res.status(401).json({ message: "Not authorized , user not found" });
                 return;
@@ -23,6 +23,7 @@ export const protect = async (req, res, next) => {
     }
     if (!token) {
         res.status(401).json({ message: "Not authorized , no token " });
+        return;
     }
 };
 export const adminOnly = (req, res, next) => {

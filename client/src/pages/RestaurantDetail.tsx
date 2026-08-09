@@ -15,7 +15,7 @@ import api from "../lib/api.ts";
 
 export default function RestaurantDetail() {
     const { slug } = useParams<{ slug: string }>();
-    const { isAuthenticated, setAuthModalOpen } = useAppContext();
+    const { isAuthenticated, openAuthModal } = useAppContext();
     const navigate = useNavigate();
 
     const [restaurant, setRestaurant] = useState<any>(null);
@@ -32,7 +32,7 @@ export default function RestaurantDetail() {
         const fetchRestaurant = async () => {
            try {
             setLoading(true);
-            const res = await api.get (`/restaurant/${slug}`)
+            const res = await api.get(`/restaurants/${slug}`)
             setRestaurant(res.data)
 
             const today = new Date().toISOString().split("T")[0];
@@ -58,7 +58,7 @@ export default function RestaurantDetail() {
             if(!restaurant?._id || !selectedDate) return;
             try {
                 setLoadingSlots(true);
-                const res = await api.get(`/restaurant/${restaurant._id}/availability?date=${selectedDate}`)
+                const res = await api.get(`/restaurants/${restaurant._id}/availability?date=${selectedDate}`)
                 setSlotsAvailability(res.data)
             } catch (error : any) {
                 console.error(error);
@@ -82,7 +82,7 @@ export default function RestaurantDetail() {
         }
 
         if (!isAuthenticated) {
-            setAuthModalOpen(true);
+            openAuthModal("login");
             return;
         }
 
