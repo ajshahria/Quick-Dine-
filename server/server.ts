@@ -34,7 +34,7 @@ app.use("/api/admin",adminRouter)
 
 
 app.use((err:Error,req:Request,res: Response,next:NextFunction)=>{
-    console.error("Unhandle Error:",err);
+    console.error("Unhandled Error:",err);
     res.status(500).json({
         message:err.message||"Internal Server Error",
         stack:process.env.NODE_ENV==="production"?undefined:err.stack,
