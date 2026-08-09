@@ -11,10 +11,6 @@ import adminRouter from "./routes/adminRoutes.js";
 
 const app = express();
 
-//Connect to MongoDB
-
-await connectDB();
-
 // Middleware
 app.use(cors())
 app.use(express.json());
@@ -23,6 +19,15 @@ const port = process.env.PORT || 5000;
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Server is Live!');
+});
+
+app.use(async (_req: Request, _res: Response, next: NextFunction) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        next(error);
+    }
 });
 
 app.use("/api/auth",authRouter)
@@ -41,6 +46,10 @@ app.use((err:Error,req:Request,res: Response,next:NextFunction)=>{
     });
 })
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+if (!process.env.VERCEL) {
+    app.listen(port, () => {
+        console.log(`Server is running at http://localhost:${port}`);
+    });
+}
+
+export default app;
