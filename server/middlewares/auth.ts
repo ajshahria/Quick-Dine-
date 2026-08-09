@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { IUser, User } from "../models/User.js";
 import jwt from "jsonwebtoken";
-import { decode } from "node:punycode";
 export interface AuthRequest extends Request {
   user?: IUser;
 }
@@ -23,7 +22,7 @@ export const protect = async (
         id: string;
       };
 
-      const user = await User.findById(decoded.id).select(".password");
+      const user = await User.findById(decoded.id).select("-password");
 
       if (!user) {
         res.status(401).json({ message: "Not authorized , user not found" });
@@ -39,6 +38,7 @@ export const protect = async (
   }
   if(!token){
      res.status(401).json({ message: "Not authorized , no token " });
+     return;
 
   }
 };

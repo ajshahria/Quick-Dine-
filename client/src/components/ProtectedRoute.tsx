@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-    const { isAuthenticated, user, loading, setAuthModalOpen } = useAppContext();
+    const { isAuthenticated, user, loading, openAuthModal } = useAppContext();
 
     if (loading) {
         return <Loader text="Loading Panel Access..." />;
@@ -27,7 +27,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
 
                     <div className="flex flex-col gap-3 w-full">
                         <button
-                            onClick={() => setAuthModalOpen(true)}
+                            onClick={() => openAuthModal("login")}
                             className="w-full bg-primary hover:bg-primary-container text-white py-3.5 px-4 text-xs font-medium tracking-widest uppercase hover:text-secondary focus:outline-none transition-colors cursor-pointer"
                         >
                             AUTHENTICATE

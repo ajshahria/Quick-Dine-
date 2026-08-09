@@ -12,20 +12,25 @@ interface UserType {
   role: "user" | "admin" | "owner";
 }
 
+type AuthMode = "login" | "register";
+
 interface AppContextType {
   user: UserType | null;
   token: string | null;
   loading: boolean;
   isAuthenticated: boolean;
   isAuthModalOpen: boolean;
+  authMode: AuthMode;
   setAuthModalOpen: (open: boolean) => void;
+  setAuthMode: (mode: AuthMode) => void;
+  openAuthModal: (mode?: AuthMode) => void;
   login: (email: string, password: string) => Promise<boolean>;
   register: (
     name: string,
     email: string,
     password: string,
     phone?: string,
-    role?: string,
+    role?: "user" | "owner",
   ) => Promise<boolean>;
   logout: () => void;
 }
@@ -43,11 +48,20 @@ export const AppContextProvider = ({ children }: Props) => {
   );
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
+  const [authMode, setAuthMode] = useState<AuthMode>("login");
+
+  const openAuthModal = (mode: AuthMode = "login") => {
+    setAuthMode(mode);
+    setAuthModalOpen(true);
+  };
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setLoading(true);
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/auth/login", {
+        email: email.trim().toLowerCase(),
+        password,
+      });
       const { token: userToken, ...userData } = res.data;
 
       localStorage.setItem("token", userToken);
@@ -68,11 +82,17 @@ export const AppContextProvider = ({ children }: Props) => {
     email: string,
     password: string,
     phone?: string,
-    role?: string,
+    role?: "user" | "owner",
   ): Promise<boolean> => {
     try {
       setLoading(true);
-      const res = await api.post("/auth/register", { name,email, password, phone , role });
+      const res = await api.post("/auth/register", {
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        password,
+        phone: phone?.trim() || undefined,
+        role,
+      });
       const { token: userToken, ...userData } = res.data;
 
       localStorage.setItem("token", userToken);
@@ -98,13 +118,15 @@ export const AppContextProvider = ({ children }: Props) => {
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
-      try {
-        const res = await api.get("/auth/me")
-        setUser(res.data)
-      } catch (error:any) {
-        toast.error(error?.response?.data?.message || error?.message);
-        logout()
-      }
+        try {
+          const res = await api.get("/auth/me");
+          setUser(res.data);
+        } catch (error: any) {
+          toast.error(error?.response?.data?.message || error?.message);
+          localStorage.removeItem("token");
+          setToken(null);
+          setUser(null);
+        }
       }
       setLoading(false);
     };
@@ -117,7 +139,10 @@ export const AppContextProvider = ({ children }: Props) => {
     loading,
     isAuthenticated: !!user,
     isAuthModalOpen,
+    authMode,
     setAuthModalOpen,
+    setAuthMode,
+    openAuthModal,
     login,
     register,
     logout,

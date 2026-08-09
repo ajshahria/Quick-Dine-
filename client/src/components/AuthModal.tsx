@@ -3,8 +3,8 @@ import { useAppContext } from "../context/AppContext.tsx";
 import { X, Mail, Lock, User, Phone } from "lucide-react";
 
 export default function AuthModal() {
-    const { isAuthModalOpen, setAuthModalOpen, login, register } = useAppContext();
-    const [isLoginTab, setIsLoginTab] = useState<boolean>(true);
+    const { isAuthModalOpen, setAuthModalOpen, authMode, setAuthMode, login, register } = useAppContext();
+    const isLoginTab = authMode === "login";
 
     // Form states
     const [name, setName] = useState("");
@@ -67,7 +67,8 @@ export default function AuthModal() {
                 {/* Header Tabs */}
                 <div className="flex border-b border-outline-variant/20">
                     <button
-                        onClick={() => setIsLoginTab(true)}
+                        type="button"
+                        onClick={() => setAuthMode("login")}
                         className={`flex-1 py-5 text-center text-xs font-medium tracking-widest transition-soft cursor-pointer ${
                             isLoginTab
                                 ? "text-primary border-b-2 border-primary bg-surface-container-lowest"
@@ -77,7 +78,8 @@ export default function AuthModal() {
                         SIGN IN
                     </button>
                     <button
-                        onClick={() => setIsLoginTab(false)}
+                        type="button"
+                        onClick={() => setAuthMode("register")}
                         className={`flex-1 py-5 text-center text-xs font-medium tracking-widest transition-soft cursor-pointer ${
                             !isLoginTab
                                 ? "text-primary border-b-2 border-primary bg-surface-container-lowest"
@@ -174,6 +176,8 @@ export default function AuthModal() {
                                     <input
                                         type="password"
                                         required
+                                        minLength={6}
+                                        autoComplete={isLoginTab ? "current-password" : "new-password"}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="••••••••"

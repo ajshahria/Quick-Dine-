@@ -22,7 +22,8 @@ export const registerUser = async (
       res.status(400).json({ message: "Please enter all required fields" });
       return;
     }
-    const userExist = await User.findOne({ email });
+    const normalizedEmail = email.trim().toLowerCase();
+    const userExist = await User.findOne({ email: normalizedEmail });
     if (userExist) {
       res.status(400).json({ message: "User already exists" });
       return;
@@ -31,11 +32,11 @@ export const registerUser = async (
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: normalizedEmail,
       password: hashedPassword,
-      phone,
-      role,
+      phone: phone?.trim() || undefined,
+      role: role === "owner" ? "owner" : "user",
     });
     if (user) {
       res.status(201).json({
@@ -66,7 +67,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     }
 
     //Check for user
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.trim().toLowerCase() });
 
     if (!user) {
       res.status(401).json({ message: "Invalid email or password" });

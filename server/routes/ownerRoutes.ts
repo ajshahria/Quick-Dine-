@@ -12,7 +12,7 @@ ownerRouter.use(ownerOnly)
 ownerRouter.get("/restaurant",getOwnerRestaurant)
 ownerRouter.post("/restaurant",upload.single("image"),createOwnerRestaurant)
 ownerRouter.put("/restaurant",upload.single("image"),updateOwnerRestaurant)
-ownerRouter.get("/restaurant",getOwnerBookings)
-ownerRouter.put("/restaurant/:id/status",updateBookingStatus)
+ownerRouter.get("/bookings",getOwnerBookings)
+ownerRouter.put("/bookings/:id/status",updateBookingStatus)
 
 export default ownerRouter;

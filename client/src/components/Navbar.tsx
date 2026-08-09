@@ -4,7 +4,7 @@ import { useAppContext } from "../context/AppContext.tsx";
 import { Menu, X, LogOut, LayoutDashboard, ShieldCheck } from "lucide-react";
 
 export default function Navbar() {
-    const { user, logout, setAuthModalOpen } = useAppContext();
+    const { user, logout, openAuthModal } = useAppContext();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -30,7 +30,7 @@ export default function Navbar() {
 
     const handleDashboardClick = () => {
         if (!user) {
-            setAuthModalOpen(true);
+            openAuthModal("login");
         } else {
             navigate("/dashboard");
         }
@@ -131,13 +131,13 @@ export default function Navbar() {
                     ) : (
                         <>
                             <button
-                                onClick={() => setAuthModalOpen(true)}
+                                onClick={() => openAuthModal("login")}
                                 className={`text-sm transition-colors cursor-pointer ${scrolled || location.pathname !== "/" ? "text-black/55 hover:text-primary" : "text-white/80 hover:text-white"}`}
                             >
                                 Sign In
                             </button>
                             <button
-                                onClick={() => setAuthModalOpen(true)}
+                                onClick={() => openAuthModal("register")}
                                 className={`text-xs font-medium tracking-wider uppercase px-5 py-2.5 transition-soft cursor-pointer ${scrolled || location.pathname !== "/" ? "bg-primary text-white hover:bg-primary-container hover:text-secondary" : "bg-white text-primary hover:bg-secondary hover:text-white"}`}
                             >
                                 Sign Up
@@ -207,13 +207,13 @@ export default function Navbar() {
                     ) : (
                         <div className="flex flex-col gap-3">
                             <button
-                                onClick={() => setAuthModalOpen(true)}
+                                onClick={() => openAuthModal("login")}
                                 className="w-full border border-outline-variant/50 text-center py-3 text-sm font-medium hover:border-primary cursor-pointer"
                             >
                                 Sign In
                             </button>
                             <button
-                                onClick={() => setAuthModalOpen(true)}
+                                onClick={() => openAuthModal("register")}
                                 className="w-full bg-primary text-white text-center py-3 text-xs font-medium tracking-widest uppercase hover:bg-secondary cursor-pointer"
                             >
                                 Sign Up
