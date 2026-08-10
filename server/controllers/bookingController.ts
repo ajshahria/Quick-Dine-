@@ -3,7 +3,7 @@
 import { Response } from "express";
 import { AuthRequest } from "../middlewares/auth.js";
 import { Restaurant } from "../models/Restaurant.js";
-import { Booking } from "../models/Booking.js";
+import { Booking, BOOKING_OCCASIONS, type BookingOccasion } from "../models/Booking.js";
 
 export const createBooking = async (req: AuthRequest,res: Response): Promise<void> =>{
     try {
@@ -39,15 +39,30 @@ export const createBooking = async (req: AuthRequest,res: Response): Promise<voi
             res.status(400).json({
                 message:`Unable to reserve. Only ${availableSeats} seats are available for this time slot.`,
             })
+            return;
         }
+
+        let normalizedOccasion: BookingOccasion | undefined;
+        if (typeof occasion === "string" && occasion.trim()) {
+            const trimmedOccasion = occasion.trim();
+            if (!BOOKING_OCCASIONS.includes(trimmedOccasion as BookingOccasion)) {
+                res.status(400).json({message:"Please provide a valid occasion"});
+                return;
+            }
+            normalizedOccasion = trimmedOccasion as BookingOccasion;
+        }
+        const normalizedSpecialRequests = typeof specialRequests === "string" && specialRequests.trim()
+            ? specialRequests.trim()
+            : undefined;
+
         const booking = await Booking.create({
             user:req.user?._id,
             restaurant:restaurantId,
             date:new Date(date),
             time,
             guests:Number(guests),
-            occasion,
-            specialRequests,
+            occasion:normalizedOccasion,
+            specialRequests:normalizedSpecialRequests,
             status:"confirmed",
         })
 

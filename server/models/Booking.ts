@@ -1,6 +1,9 @@
  
 import { Document, model, Schema, Types } from "mongoose";
 import crypto from "crypto"; 
+
+export const BOOKING_OCCASIONS = ["Birthday", "Anniversary", "Date Night", "Business Dining"] as const;
+export type BookingOccasion = (typeof BOOKING_OCCASIONS)[number];
  
 export interface IBooking extends Document{
    user:Types.ObjectId;
@@ -8,7 +11,7 @@ export interface IBooking extends Document{
    date:Date;
    time:string;
    guests:number;
-    occasion?: string;
+    occasion?: BookingOccasion;
     specialRequests?: string;
     status: "confirmed" | "cancelled" | "completed";
     bookingId:string;
@@ -23,7 +26,9 @@ const BookingSchema = new Schema<IBooking>(
         date:{type:Date,required:true},
         time:{type:String,required:true},
         guests:{type:Number,required :true,min:1},
-        occasion:{type:String ,enum:["confirmed","cancelled","completed"],default:"confirmed"},
+        occasion:{type:String,enum:[...BOOKING_OCCASIONS]},
+        specialRequests:{type:String,trim:true},
+        status:{type:String,enum:["confirmed","cancelled","completed"],default:"confirmed"},
         bookingId:{type:String,unique:true},
     },
     {timestamps:true}

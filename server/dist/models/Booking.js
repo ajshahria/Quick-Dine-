@@ -1,12 +1,15 @@
 import { model, Schema } from "mongoose";
 import crypto from "crypto";
+export const BOOKING_OCCASIONS = ["Birthday", "Anniversary", "Date Night", "Business Dining"];
 const BookingSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     restaurant: { type: Schema.Types.ObjectId, ref: "Restaurant", required: true },
     date: { type: Date, required: true },
     time: { type: String, required: true },
     guests: { type: Number, required: true, min: 1 },
-    occasion: { type: String, enum: ["confirmed", "cancelled", "completed"], default: "confirmed" },
+    occasion: { type: String, enum: [...BOOKING_OCCASIONS] },
+    specialRequests: { type: String, trim: true },
+    status: { type: String, enum: ["confirmed", "cancelled", "completed"], default: "confirmed" },
     bookingId: { type: String, unique: true },
 }, { timestamps: true });
 //Auto-generate reference code on save 

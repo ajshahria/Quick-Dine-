@@ -1,6 +1,6 @@
 //create a new booking 
 import { Restaurant } from "../models/Restaurant.js";
-import { Booking } from "../models/Booking.js";
+import { Booking, BOOKING_OCCASIONS } from "../models/Booking.js";
 export const createBooking = async (req, res) => {
     try {
         const { restaurantId, date, time, guests, occasion, specialRequests } = req.body;
@@ -31,15 +31,28 @@ export const createBooking = async (req, res) => {
             res.status(400).json({
                 message: `Unable to reserve. Only ${availableSeats} seats are available for this time slot.`,
             });
+            return;
         }
+        let normalizedOccasion;
+        if (typeof occasion === "string" && occasion.trim()) {
+            const trimmedOccasion = occasion.trim();
+            if (!BOOKING_OCCASIONS.includes(trimmedOccasion)) {
+                res.status(400).json({ message: "Please provide a valid occasion" });
+                return;
+            }
+            normalizedOccasion = trimmedOccasion;
+        }
+        const normalizedSpecialRequests = typeof specialRequests === "string" && specialRequests.trim()
+            ? specialRequests.trim()
+            : undefined;
         const booking = await Booking.create({
             user: req.user?._id,
             restaurant: restaurantId,
             date: new Date(date),
             time,
             guests: Number(guests),
-            occasion,
-            specialRequests,
+            occasion: normalizedOccasion,
+            specialRequests: normalizedSpecialRequests,
             status: "confirmed",
         });
         const populateBooking = await booking.populate("restaurant", "name location image address");
