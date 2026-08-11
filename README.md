@@ -1,0 +1,385 @@
+# QuickDine
+
+<p align="center">
+  <img src="client/public/logo.svg" alt="QuickDine logo" width="420" />
+</p>
+
+<p align="center">
+  A full-stack restaurant discovery, table-reservation, owner-management, and administration platform.
+</p>
+
+QuickDine helps diners discover restaurants and reserve seats while giving restaurant owners and administrators dedicated tools for managing listings, availability, bookings, and approvals.
+
+The project contains a React single-page application and an Express REST API backed by MongoDB. It supports three roles: diner, restaurant owner, and administrator.
+
+## Visit QuickDine
+
+| Service | Address | Status |
+|---|---|---|
+| Web application (local) | `http://localhost:5173` | Available after starting the client |
+| API health check (local) | `http://localhost:5000` | Available after starting the server |
+| Hosted API | [quick-dine-server-rust.vercel.app](https://quick-dine-server-rust.vercel.app/) | Configured as the production API |
+| Hosted web application | Not recorded in this repository | Add the frontend deployment URL here when available |
+
+To visit the complete application now, follow the [local setup](#run-the-project-locally), start both services, and open `http://localhost:5173` in a browser. Vite may choose a different port if 5173 is already occupied; use the URL printed in the client terminal.
+
+## Features
+
+### For visitors and diners
+
+- Browse featured and exclusive restaurants.
+- Search restaurants by keyword and location.
+- Filter by cuisine and price range.
+- Sort restaurant results by price.
+- View restaurant descriptions, cuisine, chef, address, price range, and available dining slots.
+- Check remaining seat capacity for a selected date and time.
+- Register and sign in with a persistent JWT session.
+- Reserve a table for a selected date, time, and party size.
+- Add an occasion and special requests to a reservation.
+- Receive a unique booking reference after confirmation.
+- View upcoming reservations and dining history.
+- Cancel an active reservation.
+- Browse restaurant recommendations from the dashboard.
+
+### For restaurant owners
+
+- Register an owner account.
+- Submit one restaurant profile for administrator approval.
+- Upload a restaurant cover image through Cloudinary.
+- Configure cuisine, location, address, chef, tags, price range, capacity, and time slots.
+- View pending, approved, or rejected registration states.
+- Update an approved restaurant profile and capacity.
+- Review restaurant bookings with diner details and special requests.
+- Mark reservations as confirmed, cancelled, or completed.
+
+### For administrators
+
+- Access a protected administration dashboard.
+- Review all restaurant registration requests.
+- Approve, reject, suspend, or re-approve restaurants.
+- View diner, owner, restaurant, and booking totals.
+- Review recent booking activity.
+
+### User experience
+
+- Responsive desktop and mobile layouts.
+- Role-aware navigation and protected routes.
+- Loading, success, and error feedback.
+- URL-based search filters that can be bookmarked or shared.
+- SPA routing support for Vercel deployments.
+
+## How the application works
+
+```mermaid
+flowchart LR
+    User["Diner / owner / admin"]
+    Client["React + Vite client"]
+    API["Express REST API"]
+    Auth["JWT authentication"]
+    Mongo["MongoDB"]
+    Cloudinary["Cloudinary images"]
+
+    User --> Client
+    Client -->|"Axios requests"| API
+    API --> Auth
+    API <--> Mongo
+    API --> Cloudinary
+    Cloudinary -->> API
+    API -->> Client
+```
+
+The client renders the user interface and stores the JWT in browser `localStorage`. Axios automatically attaches that token to API requests. The server verifies the token, reloads the user and role from MongoDB, applies authorization and business rules, and returns JSON responses.
+
+Restaurant images uploaded by owners are held temporarily in memory and streamed to Cloudinary. Restaurant profiles, user accounts, and bookings are stored in MongoDB.
+
+For detailed design documentation, see:
+
+- [Client architecture](client/ARCHITECTURE.md)
+- [Server architecture](server/ARCHITECTURE.md)
+
+## Technology stack
+
+### Client
+
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Tailwind CSS 4
+- Axios
+- React Hot Toast
+- Lucide React
+
+### Server
+
+- Node.js
+- Express 5
+- TypeScript
+- MongoDB and Mongoose
+- JSON Web Token authentication
+- bcrypt password hashing
+- Multer file handling
+- Cloudinary image storage
+
+### Deployment
+
+- Client and server include Vercel configuration.
+- The client supports a configurable API URL through `VITE_API_URL`.
+- The server exports its Express app for a serverless Vercel runtime and starts a regular listener during local development.
+
+## Project structure
+
+```text
+QuickDine/
+├── client/
+│   ├── public/                 # Public logo, favicon, and restaurant images
+│   ├── src/
+│   │   ├── assets/             # Imported images and static display data
+│   │   ├── components/         # Shared and feature-specific UI components
+│   │   ├── context/            # Authentication and application context
+│   │   ├── lib/                # Configured Axios API client
+│   │   ├── pages/              # Public, diner, owner, and admin pages
+│   │   ├── App.tsx             # Client route table
+│   │   └── main.tsx            # React application bootstrap
+│   ├── ARCHITECTURE.md         # Detailed client architecture
+│   └── package.json
+├── server/
+│   ├── config/                 # MongoDB and upload configuration
+│   ├── controllers/            # HTTP and business-flow handlers
+│   ├── middlewares/            # Authentication and role guards
+│   ├── models/                 # User, Restaurant, and Booking schemas
+│   ├── routes/                 # REST endpoint declarations
+│   ├── ARCHITECTURE.md         # Detailed server architecture
+│   ├── seed.ts                 # Destructive development data seed
+│   ├── server.ts               # Express application entry point
+│   └── package.json
+├── .gitignore
+└── README.md
+```
+
+## Run the project locally
+
+### Prerequisites
+
+Install or create the following before starting:
+
+- a current Node.js LTS release with npm;
+- a MongoDB database, either local or hosted;
+- a Cloudinary account for owner image uploads;
+- two terminal windows, one for the server and one for the client.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/AbdulJulilShahria/Quick-Dine-.git
+cd Quick-Dine-
+```
+
+If the project is already on your computer, open a terminal in its root directory instead.
+
+### 2. Configure and start the server
+
+Move into the server folder and install its dependencies:
+
+```bash
+cd server
+npm install
+```
+
+Create `server/.env` with your own values:
+
+```dotenv
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=use_a_long_random_secret
+CLOUDINARY_URL=your_cloudinary_connection_url
+PORT=5000
+```
+
+Do not commit this file or share its secrets.
+
+Start the development server:
+
+```bash
+npm run server
+```
+
+The API should be available at `http://localhost:5000`, with application endpoints below `http://localhost:5000/api`.
+
+### 3. Configure and start the client
+
+Open a second terminal from the project root:
+
+```bash
+cd client
+npm install
+```
+
+Create or update `client/.env`:
+
+```dotenv
+VITE_API_URL=http://localhost:5000/api
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
+
+Open the address printed by Vite, normally [http://localhost:5173](http://localhost:5173).
+
+## Available scripts
+
+### Client scripts
+
+Run these from `client/`:
+
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Type-check and build the production client |
+| `npm run lint` | Run ESLint across the client |
+| `npm run preview` | Preview the production build locally |
+
+### Server scripts
+
+Run these from `server/`:
+
+| Command | Purpose |
+|---|---|
+| `npm run server` | Start the API with Nodemon and TSX |
+| `npm start` | Start the API directly with TSX |
+| `npm run build` | Compile TypeScript into `server/dist/` |
+
+## Main application routes
+
+| Web route | Access | Purpose |
+|---|---|---|
+| `/` | Public | Landing page and featured dining |
+| `/search` | Public | Restaurant search and filters |
+| `/restaurant/:slug` | Public | Restaurant details and availability |
+| `/booking/:slug` | Signed-in users | Booking confirmation |
+| `/dashboard` | Signed-in users | Personal reservations and history |
+| `/owner/dashboard` | Owners | Restaurant profile and booking management |
+| `/admin/dashboard` | Administrators | Approvals and platform analytics |
+
+## API overview
+
+The client uses endpoints under `/api`:
+
+| API area | Base path | Capabilities |
+|---|---|---|
+| Authentication | `/api/auth` | Register, login, restore current user |
+| Restaurants | `/api/restaurants` | Search, featured venues, details, availability |
+| Bookings | `/api/bookings` | Create, list, and cancel diner bookings |
+| Owner portal | `/api/owner` | Restaurant registration/profile and booking status |
+| Administration | `/api/admin` | Restaurant approval and platform statistics |
+
+Protected endpoints require this header:
+
+```http
+Authorization: Bearer <token>
+```
+
+## User roles and access
+
+| Role | Access |
+|---|---|
+| `user` | Search, booking, personal dashboard, cancellation |
+| `owner` | Diner features plus the owner dashboard and restaurant management |
+| `admin` | Diner features plus the administration dashboard |
+
+New users can register as diners or owners. Administrator accounts are not available through public registration.
+
+## Restaurant approval lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> NoRestaurant
+    NoRestaurant --> Pending: Owner submits profile
+    Pending --> Approved: Admin approves
+    Pending --> Rejected: Admin rejects
+    Rejected --> Approved: Admin re-approves
+    Approved --> Rejected: Admin suspends
+    Approved --> Active: Restaurant receives bookings
+```
+
+Only approved restaurants appear in public discovery and accept bookings.
+
+## Booking lifecycle
+
+1. A diner selects a restaurant, date, party size, and available time.
+2. The protected confirmation page collects the occasion and special requests.
+3. The API verifies that the restaurant is approved and enough seats remain.
+4. A confirmed booking is stored with a generated `GR-XXXXXXXX` reference.
+5. The diner may cancel the booking.
+6. The restaurant owner may cancel it or mark it completed.
+
+Only confirmed bookings consume the restaurant's slot capacity.
+
+## Environment variables
+
+### Client
+
+| Variable | Required | Description |
+|---|---|---|
+| `VITE_API_URL` | Recommended | Full API base URL ending in `/api` |
+
+### Server
+
+| Variable | Required | Description |
+|---|---|---|
+| `MONGODB_URI` | Yes | MongoDB connection string |
+| `JWT_SECRET` | Yes | Secret used to sign and verify login tokens |
+| `CLOUDINARY_URL` | Yes for image uploads | Cloudinary account connection URL |
+| `PORT` | No | Local API port; defaults to 5000 |
+| `NODE_ENV` | No | Controls production error-stack exposure |
+| `VERCEL` | Platform-managed | Prevents the app from opening a local listener on Vercel |
+
+## Production builds
+
+Build the client:
+
+```bash
+cd client
+npm install
+npm run build
+```
+
+Build the server:
+
+```bash
+cd server
+npm install
+npm run build
+```
+
+Before deploying the client, set `VITE_API_URL` to the deployed API base URL. Before deploying the server, configure all required server environment variables in the hosting platform.
+
+## Seed script warning
+
+`server/seed.ts` deletes all users, restaurants, and bookings before inserting development data. It must never be run against a production or important database.
+
+The current seed data also contains a duplicate restaurant slug, so review and correct the data before using the script.
+
+## Current limitations
+
+- The frontend deployment URL is not stored in this repository.
+- Reviews, displayed aggregate ratings, newsletter submission, and several footer links are currently static UI content.
+- The client sends cuisine filters, but the current server search controller does not yet apply them.
+- The booking form displays editable contact information, but booking creation uses the authenticated account and does not send those edited contact fields.
+- Automated client and server tests are not currently configured.
+
+More implementation risks and recommended improvements are documented in the client and server architecture files.
+
+## Contributing
+
+1. Create a branch for the change.
+2. Keep client and server contracts aligned.
+3. Run the relevant builds and client lint checks.
+4. Never commit `.env` files, database credentials, JWT secrets, or Cloudinary credentials.
+5. Open a pull request describing the behavior and verification performed.
+
+## License
+
+The client includes an [MIT license](client/LICENSE.md). The server package currently declares ISC in `server/package.json`; align the project-wide licensing metadata before publishing a single unified license statement.
