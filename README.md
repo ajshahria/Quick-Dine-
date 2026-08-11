@@ -16,12 +16,12 @@ The project contains a React single-page application and an Express REST API bac
 
 | Service | Address | Status |
 |---|---|---|
+| Hosted web application | [quick-dine-jade.vercel.app](https://quick-dine-jade.vercel.app/) | Live production website |
 | Web application (local) | `http://localhost:5173` | Available after starting the client |
 | API health check (local) | `http://localhost:5000` | Available after starting the server |
 | Hosted API | [quick-dine-server-rust.vercel.app](https://quick-dine-server-rust.vercel.app/) | Configured as the production API |
-| Hosted web application | Not recorded in this repository | Add the frontend deployment URL here when available |
 
-To visit the complete application now, follow the [local setup](#run-the-project-locally), start both services, and open `http://localhost:5173` in a browser. Vite may choose a different port if 5173 is already occupied; use the URL printed in the client terminal.
+Visit the live application at [https://quick-dine-jade.vercel.app/](https://quick-dine-jade.vercel.app/). To run the project yourself, follow the [local setup](#run-the-project-locally), start both services, and open `http://localhost:5173` in a browser. Vite may choose a different port if 5173 is already occupied; use the URL printed in the client terminal.
 
 ## Features
 
@@ -364,7 +364,6 @@ The current seed data also contains a duplicate restaurant slug, so review and c
 
 ## Current limitations
 
-- The frontend deployment URL is not stored in this repository.
 - Reviews, displayed aggregate ratings, newsletter submission, and several footer links are currently static UI content.
 - The client sends cuisine filters, but the current server search controller does not yet apply them.
 - The booking form displays editable contact information, but booking creation uses the authenticated account and does not send those edited contact fields.
