@@ -22,8 +22,8 @@ flowchart LR
     API --> Auth
     API <--> Mongo
     API -->|"memory-buffer upload"| Cloud
-    Cloud -->> API: secure image URL
-    API -->> Client: JSON responses
+    Cloud -->|"secure image URL"| API
+    API -->|"JSON responses"| Client
 ```
 
 The API is stateless except for MongoDB data and a process-local cached MongoDB connection promise. JWTs carry the user identifier; user and role are reloaded from MongoDB for protected requests.
