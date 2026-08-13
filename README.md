@@ -84,8 +84,8 @@ flowchart LR
     API --> Auth
     API <--> Mongo
     API --> Cloudinary
-    Cloudinary -->> API
-    API -->> Client
+    Cloudinary --> API
+    API --> Client
 ```
 
 The client renders the user interface and stores the JWT in browser `localStorage`. Axios automatically attaches that token to API requests. The server verifies the token, reloads the user and role from MongoDB, applies authorization and business rules, and returns JSON responses.
