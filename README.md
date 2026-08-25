@@ -381,4 +381,4 @@ More implementation risks and recommended improvements are documented in the cli
 
 ## License
 
-The client includes an [MIT license](client/LICENSE.md). The server package currently declares ISC in `server/package.json`; align the project-wide licensing metadata before publishing a single unified license statement.
+This project was developed for educational purposes as part of the Web Programming Lab course at Metropolitan University.
