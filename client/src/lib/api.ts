@@ -1,7 +1,7 @@
 import axios from "axios";
 // Same-origin /api uses Vite locally and a deployment reverse proxy in production.
 const api = axios.create({
-  baseURL:(import.meta.env.VITE_API_URL?.trim() || "/api").replace(/\/+$/, ""),
+  baseURL:(import.meta.env.VITE_PUBLIC_API_URL?.trim() || import.meta.env.VITE_API_URL?.trim() || "/api").replace(/\/+$/, ""),
   withCredentials:true,
 });
 let csrfRequest: Promise<string> | null = null;
