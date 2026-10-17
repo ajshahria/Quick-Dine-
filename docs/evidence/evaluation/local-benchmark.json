@@ -1,0 +1,163 @@
+{
+  "capturedAt": "2026-10-17T13:33:28.221Z",
+  "environment": {
+    "os": "win32",
+    "node": "v24.12.0",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-1235U",
+    "logicalCpus": 12,
+    "memoryGiB": 7.7,
+    "database": "Temporary local MongoDB 7.0.14 replica set"
+  },
+  "scope": "Synthetic short local HTTP benchmark; not live performance, not the planned five-minute staging experiment",
+  "dataset": {
+    "users": 1,
+    "restaurants": 100,
+    "bookings": 1000
+  },
+  "capacity": {
+    "comparedSlots": 200,
+    "correctSlots": 200,
+    "accuracyPercent": 100,
+    "oracle": "Independent MongoDB aggregation of confirmed guest totals"
+  },
+  "method": {
+    "warmupRequestsPerRun": 20,
+    "measuredRequestsPerRun": 200,
+    "repeats": 3,
+    "mix": "50% cuisine listing, 50% availability; closed-loop workers; response body consumed"
+  },
+  "runs": [
+    {
+      "concurrency": 1,
+      "repeat": 1,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.732,
+      "requestsPerSecond": 73.2,
+      "p50Ms": 12.15,
+      "p95Ms": 19.55,
+      "p99Ms": 21.96
+    },
+    {
+      "concurrency": 1,
+      "repeat": 2,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.513,
+      "requestsPerSecond": 79.6,
+      "p50Ms": 11.98,
+      "p95Ms": 20.83,
+      "p99Ms": 23.95
+    },
+    {
+      "concurrency": 1,
+      "repeat": 3,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.565,
+      "requestsPerSecond": 77.97,
+      "p50Ms": 12.61,
+      "p95Ms": 18.5,
+      "p99Ms": 20.51
+    },
+    {
+      "concurrency": 5,
+      "repeat": 1,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.047,
+      "requestsPerSecond": 97.7,
+      "p50Ms": 50.9,
+      "p95Ms": 71.71,
+      "p99Ms": 81.23
+    },
+    {
+      "concurrency": 5,
+      "repeat": 2,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 1.97,
+      "requestsPerSecond": 101.54,
+      "p50Ms": 49.61,
+      "p95Ms": 67.09,
+      "p99Ms": 79.91
+    },
+    {
+      "concurrency": 5,
+      "repeat": 3,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.153,
+      "requestsPerSecond": 92.91,
+      "p50Ms": 53.94,
+      "p95Ms": 72.63,
+      "p99Ms": 80.96
+    },
+    {
+      "concurrency": 10,
+      "repeat": 1,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.051,
+      "requestsPerSecond": 97.51,
+      "p50Ms": 96.44,
+      "p95Ms": 158.58,
+      "p99Ms": 186.29
+    },
+    {
+      "concurrency": 10,
+      "repeat": 2,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 1.622,
+      "requestsPerSecond": 123.32,
+      "p50Ms": 78.34,
+      "p95Ms": 111.19,
+      "p99Ms": 128.61
+    },
+    {
+      "concurrency": 10,
+      "repeat": 3,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 1.151,
+      "requestsPerSecond": 173.8,
+      "p50Ms": 55.7,
+      "p95Ms": 72.1,
+      "p99Ms": 78.36
+    },
+    {
+      "concurrency": 20,
+      "repeat": 1,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 1.351,
+      "requestsPerSecond": 148.03,
+      "p50Ms": 122.03,
+      "p95Ms": 214.17,
+      "p99Ms": 235.31
+    },
+    {
+      "concurrency": 20,
+      "repeat": 2,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 2.086,
+      "requestsPerSecond": 95.87,
+      "p50Ms": 198.46,
+      "p95Ms": 302.93,
+      "p99Ms": 321.87
+    },
+    {
+      "concurrency": 20,
+      "repeat": 3,
+      "requests": 200,
+      "errors": 0,
+      "seconds": 1.568,
+      "requestsPerSecond": 127.58,
+      "p50Ms": 145.74,
+      "p95Ms": 184.02,
+      "p99Ms": 196.17
+    }
+  ]
+}

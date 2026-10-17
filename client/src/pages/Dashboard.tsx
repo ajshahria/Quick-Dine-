@@ -154,7 +154,7 @@ export default function Dashboard() {
                                                 </div>
                                                 <div className="flex items-center gap-2 pr-4 md:border-r border-outline-variant/20">
                                                     <ClockIcon size={14} className="text-secondary" />
-                                                    <span className="font-medium">{b.time} PM</span>
+                                                    <span className="font-medium">{b.time} (Asia/Dhaka)</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <UsersIcon size={14} className="text-secondary" />
@@ -205,7 +205,7 @@ export default function Dashboard() {
                                                                   </Link>
                                                               </td>
                                                               <td className="p-4">
-                                                                  {new Date(b.date).toLocaleDateString()} at {b.time} PM
+                                                                  {new Date(b.date).toLocaleDateString()} at {b.time} (Asia/Dhaka)
                                                               </td>
                                                               <td className="p-4">
                                                                   {b.guests} {b.guests === 1 ? "Guest" : "Guests"}

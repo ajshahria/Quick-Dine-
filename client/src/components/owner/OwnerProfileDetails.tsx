@@ -94,11 +94,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                 formData.append("image", imageFile);
             }
 
-            const res = await api.put("/owner/restaurant", formData,{
-                headers:{
-                    "Content-Type":"multipart/form-data",
-                },
-            })
+            const res = await api.put("/owner/restaurant", formData)
             setRestaurant(res.data)
 
              toast.success("Profile details updated successfully!");
@@ -122,7 +118,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         <input
                             type="text"
                             required
-                            value={name}
+                            aria-label="Restaurant name" value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -132,7 +128,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         <input
                             type="text"
                             required
-                            value={cuisine}
+                            aria-label="Cuisine" value={cuisine}
                             onChange={(e) => setCuisine(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -144,7 +140,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                     <textarea
                         required
                         rows={4}
-                        value={description}
+                        aria-label="Description" value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         className="w-full bg-surface-container-low/30 border border-outline-variant/40 p-3 text-xs focus:border-secondary focus:outline-none rounded-sm"
                     ></textarea>
@@ -179,7 +175,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                     <div className="space-y-1">
                         <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">Price Range</label>
                         <select
-                            value={priceRange}
+                            aria-label="Price range" value={priceRange}
                             onChange={(e) => setPriceRange(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         >
@@ -194,7 +190,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         <input
                             type="text"
                             required
-                            value={location}
+                            aria-label="City" value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -207,7 +203,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             type="number"
                             min="1"
                             required
-                            value={totalSeats}
+                            aria-label="Total seats" value={totalSeats}
                             onChange={(e) => setTotalSeats(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -220,7 +216,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         <input
                             type="text"
                             required
-                            value={address}
+                            aria-label="Address" value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -230,7 +226,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         <input
                             type="text"
                             required
-                            value={chef}
+                            aria-label="Chef" value={chef}
                             onChange={(e) => setChef(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -241,7 +237,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                     <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">Tags (comma separated)</label>
                     <input
                         type="text"
-                        value={tags}
+                        aria-label="Tags" value={tags}
                         onChange={(e) => setTags(e.target.value)}
                         className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                     />

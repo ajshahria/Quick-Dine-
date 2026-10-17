@@ -1,0 +1,21 @@
+// Disposable manual/browser-test environment. Does not load .env or use Atlas.
+import { MongoMemoryReplSet } from "mongodb-memory-server";
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import { randomBytes } from "node:crypto";
+import { createApp } from "../dist/app.js";
+import { User } from "../dist/models/User.js";
+import { Restaurant } from "../dist/models/Restaurant.js";
+process.env.NODE_ENV="test";
+process.env.JWT_SECRET=randomBytes(48).toString("hex");
+process.env.FRONTEND_ORIGINS="http://localhost:5173,http://127.0.0.1:5174";
+const replica=await MongoMemoryReplSet.create({replSet:{count:1},binary:{version:"7.0.14"}});
+process.env.MONGODB_URI=replica.getUri("quickdine_browser_test");
+await mongoose.connect(process.env.MONGODB_URI);
+const password=await bcrypt.hash("DemoPassword123!",10);
+const owner=await User.create({name:"Demo Owner",email:"owner@example.test",password,role:"owner"});
+await User.create({name:"Demo Diner",email:"diner@example.test",password,phone:"01712345678",role:"user"});
+await User.create({name:"Demo Admin",email:"admin@example.test",password,role:"admin"});
+await Restaurant.create({name:"Demo Table",slug:"demo-table",description:"Disposable browser-test restaurant",cuisine:"Italian",priceRange:"$$",location:"Sylhet",address:"Test address",chef:"Demo Chef",owner:owner._id,status:"approved",totalSeats:8,availableSlots:["18:00","19:00","20:00"],featured:true});
+const server=createApp().listen(5000,()=>console.log("Disposable demo API ready on http://localhost:5000"));
+for(const signal of ["SIGINT","SIGTERM"]) process.on(signal,async()=>{server.close();await mongoose.disconnect();await replica.stop();process.exit(0);});

@@ -1,126 +1,38 @@
-//create a new booking 
-
 import { Response } from "express";
 import { AuthRequest } from "../middlewares/auth.js";
-import { Restaurant } from "../models/Restaurant.js";
-import { Booking, BOOKING_OCCASIONS, type BookingOccasion } from "../models/Booking.js";
+import { Booking, BOOKING_OCCASIONS } from "../models/Booking.js";
+import { bookingDate, contactDetails, objectId, positiveInteger, slot } from "../lib/validation.js";
+import { HttpError } from "../lib/errors.js";
+import { changeBookingStatus, lockRestaurant, transaction } from "../services/reservations.js";
 
-export const createBooking = async (req: AuthRequest,res: Response): Promise<void> =>{
-    try {
-        const {restaurantId,date,time,guests,occasion,specialRequests}=req.body;
-
-        if(!restaurantId||!date||!time||!guests){
-            res.status(400).json({message:"Please provide all required reservation details"});
-            return;
-        }
-        
-        const restaurant=await Restaurant.findById(restaurantId)
-        if(!restaurant){
-            res.status(400).json({message:"Restaurant not found"});
-            return;
-        }
-        if(restaurant.status !== "approved"){
-            res.status(400).json({message:"Reservations are not open for this restaurant yet"});
-            return;
-        }
-        const requestedGuests = Number(guests);
-        const existingBookings = await Booking.find({
-            restaurant:restaurantId,
-            date:new Date(date),
-            time,
-            status:"confirmed",
-        })
-        const bookedSeats = existingBookings.reduce((sum,b)=>sum+b.guests,0)
-
-        const totalSeats= restaurant.totalSeats || 20;
-        const availableSeats = totalSeats - bookedSeats;
-
-        if(requestedGuests > availableSeats){
-            res.status(400).json({
-                message:`Unable to reserve. Only ${availableSeats} seats are available for this time slot.`,
-            })
-            return;
-        }
-
-        let normalizedOccasion: BookingOccasion | undefined;
-        if (typeof occasion === "string" && occasion.trim()) {
-            const trimmedOccasion = occasion.trim();
-            if (!BOOKING_OCCASIONS.includes(trimmedOccasion as BookingOccasion)) {
-                res.status(400).json({message:"Please provide a valid occasion"});
-                return;
-            }
-            normalizedOccasion = trimmedOccasion as BookingOccasion;
-        }
-        const normalizedSpecialRequests = typeof specialRequests === "string" && specialRequests.trim()
-            ? specialRequests.trim()
-            : undefined;
-
-        const booking = await Booking.create({
-            user:req.user?._id,
-            restaurant:restaurantId,
-            date:new Date(date),
-            time,
-            guests:Number(guests),
-            occasion:normalizedOccasion,
-            specialRequests:normalizedSpecialRequests,
-            status:"confirmed",
-        })
-
-        const populateBooking = await booking.populate("restaurant","name location image address");
-
-        res.status(201).json(populateBooking);
-
-
-
-
-    } catch (error:any) {
-        console.error(error);
-        res.status(400).json({message:error.message});
-        
-    }
-}
-
-//get logged in user booking 
-
-export const getMyBookings = async (req: AuthRequest,res: Response): Promise<void> =>{
-    try {
-        const bookings= await Booking.find({user:req.user?._id}).populate("restaurant","name location image address slug").sort({date:-1,time:-1})
-
-        res.json(bookings);
-
-
-
-    } catch (error:any) {
-        console.error(error);
-        res.status(400).json({message:error.message});
-        
-    }
-}
-//cancel a booking 
-
-export const cancelBooking  = async (req: AuthRequest,res: Response): Promise<void> =>{
-    try {
-        const booking =await Booking.findById(req.params.id);
-
-        if(!booking){
-            res.status(404).json({message: "Booking not found"});
-            return;
-        }
-        if(booking.user.toString() !== req.user?._id.toString()){
-            res.status(401).json({message:"Not authorized to cancel this booking"});
-            return;
-        }
-
-        booking.status="cancelled";
-        await booking.save();
-
-        const populatedBooking=await booking.populate("restaurant","name location image address")
-        res.json(populatedBooking);
-
-
-    } catch (error:any) {
-        console.error(error);
-        res.status(400).json({message:error.message});
-        
-    }
-}
+export const createBooking = async (req: AuthRequest, res: Response): Promise<void> => {
+  const restaurantId = objectId(req.body.restaurantId);
+  const date = bookingDate(req.body.date);
+  const guests = positiveInteger(req.body.guests, "Guest count");
+  const contact = contactDetails(req.body.contact);
+  const { occasion, specialRequests } = req.body;
+  if (occasion !== undefined && occasion !== "" && !BOOKING_OCCASIONS.includes(occasion)) throw new HttpError(400, "Please provide a valid occasion");
+  if (specialRequests !== undefined && (typeof specialRequests !== "string" || specialRequests.length > 1000)) throw new HttpError(400, "Special requests must be at most 1000 characters");
+  const booking = await transaction(async session => {
+    const restaurant = await lockRestaurant(restaurantId, session);
+    if (restaurant.status !== "approved") throw new HttpError(409, "Reservations are not open for this restaurant yet");
+    const time = slot(req.body.time, restaurant.availableSlots, date);
+    const capacity = positiveInteger(restaurant.totalSeats, "Restaurant capacity");
+    const existing = await Booking.find({ restaurant:restaurantId, date, time, status:"confirmed" }).session(session);
+    const available = capacity - existing.reduce((sum, b) => sum + b.guests, 0);
+    if (guests > available) throw new HttpError(409, `Only ${Math.max(0, available)} seats are available for this time slot`);
+    const [created] = await Booking.create([{
+      user:req.user!._id, restaurant:restaurantId, date, time, guests, contact,
+      occasion:occasion || undefined, specialRequests:specialRequests?.trim() || undefined, status:"confirmed",
+    }], { session });
+    return created;
+  });
+  res.status(201).json(await booking.populate("restaurant", "name location image address"));
+};
+export const getMyBookings = async (req: AuthRequest, res: Response): Promise<void> => {
+  res.json(await Booking.find({ user:req.user!._id }).populate("restaurant", "name location image address slug").sort({ date:-1, time:-1 }));
+};
+export const cancelBooking = async (req: AuthRequest, res: Response): Promise<void> => {
+  const booking = await changeBookingStatus(objectId(req.params.id), req.user!._id.toString(), "cancelled");
+  res.json(await booking.populate("restaurant", "name location image address"));
+};

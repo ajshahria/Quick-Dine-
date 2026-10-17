@@ -20,6 +20,7 @@ export interface IRestaurant extends Document{
     owner:Types.ObjectId;
     status:"pending"|"approved"|"rejected";
     totalSeats:number;
+    bookingRevision:number;
     createdAt:Date;
     updatedAt:Date;
 }
@@ -42,7 +43,8 @@ const RestaurantSchema = new Schema<IRestaurant>(
         exclusive:{type:Boolean,default:false},
         owner:{type:Schema.Types.ObjectId,ref:"User",required:true},
         status:{type:String ,enum:["pending","approved","rejected"],default:"pending"},
-        totalSeats:{type:Number,default:20},
+        totalSeats:{type:Number,default:20,min:1,max:10000,validate:Number.isInteger},
+        bookingRevision:{type:Number,default:0,select:false},
     },
     {timestamps:true}
 )

@@ -1,0 +1,18 @@
+[
+  {
+    "suite": "client",
+    "passed": 47,
+    "failed": 0,
+    "pending": 0,
+    "total": 47,
+    "success": true
+  },
+  {
+    "suite": "server",
+    "passed": 41,
+    "failed": 0,
+    "pending": 0,
+    "total": 41,
+    "success": true
+  }
+]
