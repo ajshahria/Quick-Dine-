@@ -287,6 +287,7 @@ Run these from `server/`:
 | `npm run build` | Compile TypeScript into `server/dist/` |
 | `npm test` | Build the server and run the Jest suite |
 | `npm run test:coverage` | Run server tests with coverage |
+| `node scripts/update-restaurant-images.mjs` | Preview Cupstory and Madgrill image updates; see [restaurant cover images](#restaurant-cover-images) for apply options |
 
 ## Main application routes
 
