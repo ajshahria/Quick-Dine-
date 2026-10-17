@@ -90,7 +90,7 @@ flowchart LR
 
 The client uses a same-origin `/api` proxy and cookie authentication. The JWT is stored in an HttpOnly cookie, with Secure enabled in production and SameSite=Lax. Axios sends credentials and obtains a CSRF token for mutations. The server verifies the token and persisted session, reloads the user and role, and applies authorization and validation.
 
-Restaurant images uploaded by owners are held temporarily in memory and streamed to Cloudinary. Listings can also use images served from the client's `public/` directory. Restaurant profiles, user accounts, and bookings are stored in MongoDB.
+Restaurant images uploaded by owners are held temporarily in memory and streamed to Cloudinary. Listings can also use images served from the client's `public/` directory. Each restaurant's `image` field in MongoDB stores either a Cloudinary URL or a public image path. Restaurant profiles, user accounts, and bookings are stored in MongoDB.
 
 For detailed design documentation, see:
 
