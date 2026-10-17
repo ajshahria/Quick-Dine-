@@ -58,6 +58,15 @@ const payload = (overrides={}) => ({restaurantId:restaurant.id,date:date(),time:
 const existing = overrides => Booking.create({user:diner._id,restaurant:restaurant._id,date:new Date(`${date()}T00:00:00Z`),time:"18:00",guests:2,status:"confirmed",...overrides});
 
 describe("authentication and browser security", () => {
+  test("health responses retain Helmet security headers", async () => {
+    const response = await request(app).get("/health/live").expect(200);
+    expect(response.headers["content-security-policy"]).toContain("default-src 'self'");
+    expect(response.headers["strict-transport-security"]).toBe("max-age=31536000; includeSubDomains");
+    expect(response.headers["x-content-type-options"]).toBe("nosniff");
+    expect(response.headers["x-frame-options"]).toBe("SAMEORIGIN");
+    expect(response.headers["x-powered-by"]).toBeUndefined();
+  });
+
   test("registers with HttpOnly cookie, no token/password JSON, and cannot self-register admin", async () => {
     const c=await client();
     const r=await c.send("post","/api/auth/register",{name:"New User",email:" NEW@EXAMPLE.TEST ",password:"Password123!",role:"admin"}).expect(201);

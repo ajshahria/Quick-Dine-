@@ -1,7 +1,8 @@
-import express, { type ErrorRequestHandler } from "express";
+import express, { type ErrorRequestHandler, type RequestHandler } from "express";
+import { createRequire } from "node:module";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import helmet from "helmet";
+import type { HelmetOptions } from "helmet";
 import mongoose from "mongoose";
 import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoutes.js";
@@ -12,6 +13,10 @@ import adminRouter from "./routes/adminRoutes.js";
 import { allowedOrigins, csrfProtection } from "./middlewares/csrf.js";
 import { secret } from "./lib/session.js";
 import { HttpError } from "./lib/errors.js";
+
+// Vercel's NodeNext checker resolves Helmet's CommonJS types for this ESM app.
+// Load that callable export explicitly while retaining its middleware types.
+const helmet: (options?: Readonly<HelmetOptions>) => RequestHandler = createRequire(import.meta.url)("helmet");
 
 export function createApp() {
   const app = express();
