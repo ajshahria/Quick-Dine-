@@ -44,7 +44,7 @@ export default function OwnerBookings({ bookings, setBookings, totalSeats }: Own
                         >
                             <div className="space-y-1.5 flex-1">
                                 <div className="flex items-center gap-3">
-                                    <h4 className="font-display text-base font-medium text-primary">{b.user?.name}</h4>
+                                    <h4 className="font-display text-base font-medium text-primary">{b.contact?.name || b.user?.name}</h4>
                                     <span className="text-[9px] text-black/50 border border-outline-variant/30 px-1.5 py-0.5">
                                         {b.bookingId}
                                     </span>
@@ -54,12 +54,13 @@ export default function OwnerBookings({ bookings, setBookings, totalSeats }: Own
                                         <Users size={12} /> {b.guests} Guests
                                     </span>
                                     <span className="flex items-center gap-1">
-                                        <Clock size={12} /> {b.time} PM
+                                        <Clock size={12} /> {b.time}
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <Calendar size={12} /> {new Date(b.date).toLocaleDateString()}
                                     </span>
                                 </div>
+                                <p className="text-xs text-black/55">{b.contact ? `${b.contact.email} · ${b.contact.phone}` : "Booking contact details unavailable (legacy booking)"}</p>
                                 {b.specialRequests && (
                                     <p className="text-xs text-secondary/80 bg-secondary/5 px-3 py-1.5 rounded-sm border-l-2 border-secondary mt-2">
                                         <strong>Requests:</strong> {b.specialRequests}

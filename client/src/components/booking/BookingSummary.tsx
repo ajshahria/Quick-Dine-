@@ -42,7 +42,7 @@ export default function BookingSummary({ restaurant, date, slot, guests }: Booki
                     <span className="text-black/55 flex items-center gap-2">
                         <Clock size={14} /> Time
                     </span>
-                    <span>{slot} PM</span>
+                    <span>{slot} (Asia/Dhaka)</span>
                 </div>
                 <div className="flex justify-between items-center">
                     <span className="text-black/55 flex items-center gap-2">
@@ -56,8 +56,7 @@ export default function BookingSummary({ restaurant, date, slot, guests }: Booki
             <div className="space-y-2">
                 <h5 className="text-[10px] font-medium tracking-wider text-primary uppercase">CANCELLATION POLICY</h5>
                 <p className="text-xs text-black/55 leading-relaxed">
-                    We hold reservations for a maximum of 15 minutes. Cancellations or changes can be made free of charge up to 24 hours in
-                    advance.
+                    You can cancel a confirmed reservation from My Bookings. Contact the restaurant directly for arrival arrangements.
                 </p>
             </div>
         </div>

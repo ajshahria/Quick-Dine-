@@ -176,7 +176,7 @@ export default function AuthModal() {
                                     <input
                                         type="password"
                                         required
-                                        minLength={6}
+                                        minLength={isLoginTab ? 6 : 8}
                                         autoComplete={isLoginTab ? "current-password" : "new-password"}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}

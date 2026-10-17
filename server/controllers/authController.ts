@@ -1,109 +1,42 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
+import { User } from "../models/User.js";
 import { AuthRequest } from "../middlewares/auth.js";
-
-const generateToken = (id: string) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET as string, {
-    expiresIn: "30d",
-  });
+import { issueSession, revokeSession } from "../lib/session.js";
+import { text } from "../lib/validation.js";
+import { HttpError } from "../lib/errors.js";
+function credentials(body: Record<string, unknown>) {
+  const email = text(body.email, "Email", 254).toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new HttpError(400, "Enter a valid email");
+  if (typeof body.password !== "string" || body.password.length < 8 || Buffer.byteLength(body.password) > 72) throw new HttpError(400, "Password must be at least 8 characters and at most 72 bytes");
+  return { email, password:body.password };
+}
+export const registerUser = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = credentials(req.body);
+  const name = text(req.body.name, "Name");
+  const phone = req.body.phone === undefined ? undefined : text(req.body.phone, "Phone", 30);
+  if (phone && !/^\+?\d{11,15}$/.test(phone)) throw new HttpError(400, "Enter a phone number with 11-15 digits");
+  if (await User.exists({ email })) throw new HttpError(409, "Unable to register with these details");
+  const user = await User.create({ name, email, phone, password:await bcrypt.hash(password, 10), role:req.body.role === "owner" ? "owner" : "user" });
+  await revokeSession(req, res);
+  await issueSession(res, user._id.toString());
+  res.status(201).json(user);
 };
-//Register a new user
-
-export const registerUser = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  try {
-    const { name, email, password, phone, role } = req.body;
-
-    if (!name || !email || !password) {
-      res.status(400).json({ message: "Please enter all required fields" });
-      return;
-    }
-    const normalizedEmail = email.trim().toLowerCase();
-    const userExist = await User.findOne({ email: normalizedEmail });
-    if (userExist) {
-      res.status(400).json({ message: "User already exists" });
-      return;
-    }
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const user = await User.create({
-      name: name.trim(),
-      email: normalizedEmail,
-      password: hashedPassword,
-      phone: phone?.trim() || undefined,
-      role: role === "owner" ? "owner" : "user",
-    });
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        role: user.role,
-        token: generateToken(user._id.toString()),
-      });
-    } else {
-      res.status(400).json({ message: "Invalid user data" });
-    }
-  } catch (error: any) {
-    console.error(error);
-    res.status(400).json({ message: error.message });
-  }
-};
-
-//Authenticate a user and get token
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      res.status(400).json({ message: "Please provide email and password" });
-      return;
-    }
-
-    //Check for user
-    const user = await User.findOne({ email: email.trim().toLowerCase() });
-
-    if (!user) {
-      res.status(401).json({ message: "Invalid email or password" });
-      return;
-    }
-    //Check if password matches
-
-    const isMatch = await bcrypt.compare(password, user.password || "");
-    if (!isMatch) {
-      res.status(401).json({ message: "Invalid email or password" });
-      return;
-    }
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      role: user.role,
-      token: generateToken(user._id.toString()),
-    });
-  } catch (error:any) {
-     console.error(error);
-    res.status(400).json({ message: error.message });
-  }
+  // Accept legacy shorter passwords on login while enforcing stronger new ones.
+  const email = text(req.body.email, "Email", 254).toLowerCase();
+  const password = req.body.password;
+  if (typeof password !== "string" || !password || Buffer.byteLength(password) > 72) throw new HttpError(401, "Invalid email or password");
+  const user = await User.findOne({ email });
+  const fallback = "$2b$10$C6UzMDM.H6dfI/f/IKcEe.5vS9SE6HG89vQjV1iNF0fT1JrGWHf6u";
+  const matches = await bcrypt.compare(password, user?.password || fallback);
+  if (!user || !matches) throw new HttpError(401, "Invalid email or password");
+  await revokeSession(req, res);
+  await issueSession(res, user._id.toString());
+  res.json(user);
 };
-
-//Get user profile
-export const getMe = async (req: AuthRequest, res: Response): Promise<void> => {
-  try {
-    if(!req.user){
-        res.status(401).json({message:"Not authorized"})
-        return;
-    }
-    res.json(req.user)
-  } catch (error:any) {
-    console.error(error);
-    res.status(400).json({message:error.message});
-  }
+export const getMe = async (req: AuthRequest, res: Response): Promise<void> => { res.json(req.user); };
+export const logoutUser = async (req: Request, res: Response): Promise<void> => {
+  await revokeSession(req, res);
+  res.status(204).end();
 };

@@ -12,6 +12,7 @@ import RestaurantInfo from "../components/restaurant/RestaurantInfo.tsx";
 import RestaurantReviews from "../components/restaurant/RestaurantReviews.tsx";
 import BookingWidget from "../components/restaurant/BookingWidget.tsx";
 import api from "../lib/api.ts";
+import { diningToday } from "../lib/diningDate.ts";
 
 export default function RestaurantDetail() {
     const { slug } = useParams<{ slug: string }>();
@@ -27,6 +28,7 @@ export default function RestaurantDetail() {
     const [selectedSlot, setSelectedSlot] = useState("");
     const [slotsAvailability, setSlotsAvailability] = useState<any[]>([]);
     const [loadingSlots, setLoadingSlots] = useState(false);
+    const [availabilityError, setAvailabilityError] = useState("");
 
     useEffect(() => {
         const fetchRestaurant = async () => {
@@ -35,7 +37,7 @@ export default function RestaurantDetail() {
             const res = await api.get(`/restaurants/${slug}`)
             setRestaurant(res.data)
 
-            const today = new Date().toISOString().split("T")[0];
+            const today = diningToday();
             setSelectedDate(today);
 
 
@@ -54,19 +56,22 @@ export default function RestaurantDetail() {
     }, [slug, navigate]);
 
     useEffect(() => {
+        let active = true;
+        if (!restaurant?._id || !selectedDate) return;
         const fetchAvailability = async () => {
-            if(!restaurant?._id || !selectedDate) return;
+            setLoadingSlots(true);
+            setAvailabilityError("");
+            setSelectedSlot("");
+            setSlotsAvailability([]);
             try {
-                setLoadingSlots(true);
-                const res = await api.get(`/restaurants/${restaurant._id}/availability?date=${selectedDate}`)
-                setSlotsAvailability(res.data)
-            } catch (error : any) {
-                console.error(error);
-            }finally{
-                setLoadingSlots(false)
-            }
+                const res = await api.get(`/restaurants/${restaurant._id}/availability?date=${selectedDate}`);
+                if (active) setSlotsAvailability(res.data);
+            } catch {
+                if (active) setAvailabilityError("Availability could not be loaded. Choose the date again to retry.");
+            } finally { if (active) setLoadingSlots(false); }
         };
-        fetchAvailability();
+        void fetchAvailability();
+        return () => { active = false; };
     }, [restaurant?._id, selectedDate]);
 
     if (loading) {
@@ -76,7 +81,7 @@ export default function RestaurantDetail() {
     if (!restaurant) return null;
 
     const handleReserveClick = () => {
-        if (!selectedSlot) {
+        if (loadingSlots || availabilityError || !slotsAvailability.some(s => s.time === selectedSlot && s.isAvailable && s.availableSeats >= Number(selectedGuests))) {
             toast.error("Please select a dining time slot.");
             return;
         }
@@ -119,6 +124,7 @@ export default function RestaurantDetail() {
                             setSelectedSlot={setSelectedSlot}
                             slotsAvailability={slotsAvailability}
                             loadingSlots={loadingSlots}
+                            availabilityError={availabilityError}
                             isAuthenticated={isAuthenticated}
                             handleReserveClick={handleReserveClick}
                         />

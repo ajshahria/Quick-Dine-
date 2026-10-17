@@ -19,7 +19,7 @@ The project contains a React single-page application and an Express REST API bac
 | Hosted web application | [quick-dine-jade.vercel.app](https://quick-dine-jade.vercel.app/) | Live production website |
 | Web application (local) | `http://localhost:5173` | Available after starting the client |
 | API health check (local) | `http://localhost:5000` | Available after starting the server |
-| Hosted API | [quick-dine-server-rust.vercel.app](https://quick-dine-server-rust.vercel.app/) | Configured as the production API |
+| Hosted API | [quickdine-api-d604.onrender.com](https://quickdine-api-d604.onrender.com/health/ready) | Readiness HTTP 200 verified 17 October 2026 |
 
 Visit the live application at [https://quick-dine-jade.vercel.app/](https://quick-dine-jade.vercel.app/). To run the project yourself, follow the [local setup](#run-the-project-locally), start both services, and open `http://localhost:5173` in a browser. Vite may choose a different port if 5173 is already occupied; use the URL printed in the client terminal.
 
@@ -88,7 +88,7 @@ flowchart LR
     API --> Client
 ```
 
-The client renders the user interface and stores the JWT in browser `localStorage`. Axios automatically attaches that token to API requests. The server verifies the token, reloads the user and role from MongoDB, applies authorization and business rules, and returns JSON responses.
+The client uses a same-origin `/api` proxy and cookie authentication. The JWT is stored in an HttpOnly cookie, with Secure enabled in production and SameSite=Lax. Axios sends credentials and obtains a CSRF token for mutations. The server verifies the token and persisted session, reloads the user and role, and applies authorization and validation.
 
 Restaurant images uploaded by owners are held temporarily in memory and streamed to Cloudinary. Restaurant profiles, user accounts, and bookings are stored in MongoDB.
 
@@ -124,7 +124,7 @@ For detailed design documentation, see:
 ### Deployment
 
 - Client and server include Vercel configuration.
-- The client supports a configurable API URL through `VITE_API_URL`.
+- The client supports a configurable API URL through `VITE_PUBLIC_API_URL`.
 - The server exports its Express app for a serverless Vercel runtime and starts a regular listener during local development.
 
 ## Project structure
@@ -190,7 +190,7 @@ Create `server/.env` with your own values:
 
 ```dotenv
 MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=use_a_long_random_secret
+JWT_SECRET=replace_with_a_random_secret_of_at_least_32_characters
 CLOUDINARY_URL=your_cloudinary_connection_url
 PORT=5000
 ```
@@ -217,7 +217,7 @@ npm install
 Create or update `client/.env`:
 
 ```dotenv
-VITE_API_URL=http://localhost:5000/api
+VITE_PUBLIC_API_URL=/api
 ```
 
 Start the Vite development server:
@@ -275,11 +275,7 @@ The client uses endpoints under `/api`:
 | Owner portal | `/api/owner` | Restaurant registration/profile and booking status |
 | Administration | `/api/admin` | Restaurant approval and platform statistics |
 
-Protected endpoints require this header:
-
-```http
-Authorization: Bearer <token>
-```
+Protected endpoints require the session cookie issued at login. Mutations also require the `X-CSRF-Token` header obtained from `GET /api/auth/csrf`; the shared frontend API client handles this. Logout uses `POST /api/auth/logout` and revokes the server session.
 
 ## User roles and access
 
@@ -323,7 +319,7 @@ Only confirmed bookings consume the restaurant's slot capacity.
 
 | Variable | Required | Description |
 |---|---|---|
-| `VITE_API_URL` | Recommended | Full API base URL ending in `/api` |
+| `VITE_PUBLIC_API_URL` | Recommended | Full API base URL ending in `/api` |
 
 ### Server
 
@@ -354,7 +350,7 @@ npm install
 npm run build
 ```
 
-Before deploying the client, set `VITE_API_URL` to the deployed API base URL. Before deploying the server, configure all required server environment variables in the hosting platform.
+Use `VITE_PUBLIC_API_URL=/api` and configure a Vercel rewrite to the deployed backend before publishing the client. Configure the server secrets and exact `FRONTEND_ORIGINS` in Render. See [implementation status and measured evidence](docs/IMPLEMENTATION_STATUS.md), [workflow](docs/WORKFLOW.txt), and [literature review](docs/LITERATURE_REVIEW.md).
 
 ## Seed script warning
 
@@ -365,9 +361,9 @@ The current seed data also contains a duplicate restaurant slug, so review and c
 ## Current limitations
 
 - Reviews, displayed aggregate ratings, newsletter submission, and several footer links are currently static UI content.
-- The client sends cuisine filters, but the current server search controller does not yet apply them.
-- The booking form displays editable contact information, but booking creation uses the authenticated account and does not send those edited contact fields.
-- Automated client and server tests are not currently configured.
+- The independent-slot capacity model does not yet account for meal durations or physical table combinations.
+- Legacy bookings lack booking-specific contact snapshots; new bookings persist validated contact details.
+- The automated suites pass locally and in CI. Public deployment checks and the live diner booking/cancellation journey pass; owner/admin live journeys and genuine pilot-data provenance remain to be verified.
 
 More implementation risks and recommended improvements are documented in the client and server architecture files.
 

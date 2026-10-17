@@ -48,7 +48,7 @@ export default function BookingSuccess({ confirmedBooking, restaurant, date, slo
                     </div>
                     <div className="flex items-center gap-3">
                         <Clock size={14} className="text-black/55" />
-                        <span>{slot} PM</span>
+                        <span>{slot} (Asia/Dhaka)</span>
                     </div>
                     <div className="flex items-center gap-3">
                         <Users size={14} className="text-black/55" />
@@ -61,6 +61,7 @@ export default function BookingSuccess({ confirmedBooking, restaurant, date, slo
                 </div>
             </div>
 
+            {confirmedBooking.contact && <p className="text-xs">Booking contact: {confirmedBooking.contact.name} · {confirmedBooking.contact.email} · {confirmedBooking.contact.phone}</p>}
             {/* Action buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link

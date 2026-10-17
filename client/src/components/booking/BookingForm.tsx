@@ -37,9 +37,9 @@ export default function BookingForm({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Name */}
                     <div className="space-y-1">
-                        <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">FULL NAME</label>
+                        <label htmlFor="contact-name" className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">FULL NAME</label>
                         <input
-                            type="text"
+                            id="contact-name" maxLength={100} type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
@@ -49,9 +49,9 @@ export default function BookingForm({
 
                     {/* Email */}
                     <div className="space-y-1">
-                        <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">EMAIL ADDRESS</label>
+                        <label htmlFor="contact-email" className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">EMAIL ADDRESS</label>
                         <input
-                            type="email"
+                            id="contact-email" maxLength={254} type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
@@ -63,9 +63,9 @@ export default function BookingForm({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Phone */}
                     <div className="space-y-1">
-                        <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">PHONE NUMBER</label>
+                        <label htmlFor="contact-phone" className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">PHONE NUMBER</label>
                         <input
-                            type="tel"
+                            id="contact-phone" maxLength={30} type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
@@ -75,8 +75,8 @@ export default function BookingForm({
 
                     {/* Occasion */}
                     <div className="space-y-1">
-                        <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">SPECIAL OCCASION</label>
-                        <select
+                        <label htmlFor="occasion" className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">SPECIAL OCCASION</label>
+                        <select id="occasion"
                             value={occasion}
                             onChange={(e) => setOccasion(e.target.value)}
                             className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none cursor-pointer"
@@ -95,7 +95,7 @@ export default function BookingForm({
                     <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">
                         SPECIAL REQUESTS (OPTIONAL)
                     </label>
-                    <textarea
+                    <textarea aria-label="Special requests" maxLength={1000}
                         value={specialRequests}
                         onChange={(e) => setSpecialRequests(e.target.value)}
                         rows={3}

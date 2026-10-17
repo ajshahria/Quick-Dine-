@@ -1,0 +1,50 @@
+{
+  "capturedAt": "2026-10-17T13:19:15.216Z",
+  "source": "Existing configured Atlas database (read only)",
+  "provenance": "Existing records; genuine pilot vs seed/demo provenance is not established by this audit",
+  "usersByRole": [
+    {
+      "_id": "admin",
+      "count": 1
+    },
+    {
+      "_id": "owner",
+      "count": 5
+    },
+    {
+      "_id": "user",
+      "count": 5
+    }
+  ],
+  "restaurantsByStatus": [
+    {
+      "_id": "approved",
+      "count": 8
+    },
+    {
+      "_id": "pending",
+      "count": 1
+    },
+    {
+      "_id": "rejected",
+      "count": 1
+    }
+  ],
+  "bookingsByStatus": [
+    {
+      "_id": "cancelled",
+      "count": 3
+    },
+    {
+      "_id": "confirmed",
+      "count": 2
+    }
+  ],
+  "bookingDates": [
+    {
+      "first": "2026-08-10T16:32:21.866Z",
+      "last": "2026-08-28T03:10:21.888Z"
+    }
+  ],
+  "confirmedSlotsExceedingCurrentCapacity": 0
+}

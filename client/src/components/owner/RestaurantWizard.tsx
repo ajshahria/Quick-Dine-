@@ -85,11 +85,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                 formData.append("image", imageFile);
             }
 
-           const res = await api.post("/owner/restaurant", formData,{
-            headers:{
-                "Context-Type":"multipart/form-data",
-            }
-           })
+           const res = await api.post("/owner/restaurant", formData)
            setRestaurant(res.data)
             toast.success("Restaurant profile submitted successfully! Awaiting Admin approval.");
         } catch (error: any) {
@@ -116,7 +112,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         <input
                             type="text"
                             required
-                            value={name}
+                            aria-label="Restaurant name" value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g. L'Artiste"
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
@@ -127,7 +123,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         <input
                             type="text"
                             required
-                            value={cuisine}
+                            aria-label="Cuisine" value={cuisine}
                             onChange={(e) => setCuisine(e.target.value)}
                             placeholder="e.g. French, Omakase"
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
@@ -140,7 +136,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                     <textarea
                         required
                         rows={4}
-                        value={description}
+                        aria-label="Description" value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Describe the gastronomical experience, atmosphere, and dining philosophy..."
                         className="w-full bg-surface-container-low/30 border border-outline-variant/40 p-3 text-xs focus:border-secondary focus:outline-none rounded-sm"
@@ -176,7 +172,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                     <div className="space-y-1">
                         <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">Price Range</label>
                         <select
-                            value={priceRange}
+                            aria-label="Price range" value={priceRange}
                             onChange={(e) => setPriceRange(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         >
@@ -191,7 +187,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         <input
                             type="text"
                             required
-                            value={location}
+                            aria-label="City" value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder="e.g. Manhattan, NY"
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
@@ -205,7 +201,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             type="number"
                             min="1"
                             required
-                            value={totalSeats}
+                            aria-label="Total seats" value={totalSeats}
                             onChange={(e) => setTotalSeats(e.target.value)}
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
                         />
@@ -218,7 +214,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         <input
                             type="text"
                             required
-                            value={address}
+                            aria-label="Address" value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="123 Gastronomy Lane, New York"
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
@@ -229,7 +225,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         <input
                             type="text"
                             required
-                            value={chef}
+                            aria-label="Chef" value={chef}
                             onChange={(e) => setChef(e.target.value)}
                             placeholder="Chef Jean-Luc"
                             className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
@@ -241,7 +237,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                     <label className="block text-[10px] font-medium text-black/55 tracking-wider uppercase">Tags (comma separated)</label>
                     <input
                         type="text"
-                        value={tags}
+                        aria-label="Tags" value={tags}
                         onChange={(e) => setTags(e.target.value)}
                         placeholder="Michelin Star, Romantic, Rooftop"
                         className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"

@@ -11,6 +11,7 @@ export interface IBooking extends Document{
    date:Date;
    time:string;
    guests:number;
+   contact?: { name: string; email: string; phone: string };
     occasion?: BookingOccasion;
     specialRequests?: string;
     status: "confirmed" | "cancelled" | "completed";
@@ -25,9 +26,11 @@ const BookingSchema = new Schema<IBooking>(
         
         date:{type:Date,required:true},
         time:{type:String,required:true},
-        guests:{type:Number,required :true,min:1},
+        guests:{type:Number,required :true,min:1,validate:Number.isInteger},
+        // Optional for legacy records; required for new bookings by the API.
+        contact: { type: new Schema({ name: {type:String,required:true,maxlength:100}, email: {type:String,required:true,maxlength:254}, phone: {type:String,required:true,maxlength:30} }, { _id:false }), required:false },
         occasion:{type:String,enum:[...BOOKING_OCCASIONS]},
-        specialRequests:{type:String,trim:true},
+        specialRequests:{type:String,trim:true,maxlength:1000},
         status:{type:String,enum:["confirmed","cancelled","completed"],default:"confirmed"},
         bookingId:{type:String,unique:true},
     },
@@ -42,6 +45,7 @@ BookingSchema.pre("save",function(){
 })
 
 
+BookingSchema.index({ restaurant:1, date:1, time:1, status:1 });
 export const Booking  =model<IBooking>("Booking",BookingSchema)
 
 

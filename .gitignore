@@ -1,2 +1,11 @@
 node_modules
 .env
+.env.*
+!.env.example
+*.local.log
+coverage/
+audit.local.json
+*.tsbuildinfo
+.vercel/
+client/dist/
+server/dist/
