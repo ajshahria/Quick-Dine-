@@ -181,6 +181,7 @@ QuickDine/
 │   ├── middlewares/            # Authentication and role guards
 │   ├── models/                 # User, Restaurant, and Booking schemas
 │   ├── routes/                 # REST endpoint declarations
+│   ├── scripts/                # Image updates, audits, and development utilities
 │   ├── ARCHITECTURE.md         # Detailed server architecture
 │   ├── seed.ts                 # Destructive development data seed
 │   ├── server.ts               # Express application entry point
