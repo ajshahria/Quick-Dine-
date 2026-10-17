@@ -97,6 +97,8 @@ For detailed design documentation, see:
 - [Client architecture](client/ARCHITECTURE.md)
 - [Server architecture](server/ARCHITECTURE.md)
 
+## Restaurant cover images
+
 ## Technology stack
 
 ### Client
