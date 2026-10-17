@@ -62,9 +62,9 @@ STEP 5 - TEST SUITE AND CI
 [x] API: auth, cuisine, validation, contacts, capacity and concurrency.
 [x] API: pending -> approved/rejected lifecycle and role restrictions.
 [x] UI: filters, booking/contact flow, errors, session restore and logout.
-[ ] Run builds, client lint and both test suites in CI.
-[ ] Publish passed/failed/skipped counts, pass rate and coverage artifacts.
-[ ] Proposed gates: 80% lines/statements/functions; 75% branches;
+[x] Run builds, client lint and both test suites in CI.
+[x] Publish passed/failed/skipped counts, pass rate and coverage artifacts.
+[x] Proposed gates: 80% lines/statements/functions; 75% branches;
     zero failures and no skipped critical-path tests.
 OUTPUT: actual test/coverage reports linked to the tested commit.
 IF FAILED: fix the relevant code, rerun affected checks, then full gate.
@@ -93,8 +93,8 @@ IF FAILED: repair deployment/code and repeat affected end-to-end flow.
 STEP 8 - COLLECT RESULTS
 [ ] Count actual pilot users, restaurants and bookings by status.
 [ ] Record collection period/provenance; anonymize personal information.
-[ ] Keep synthetic fixtures/load traffic separate from genuine usage.
-[ ] Compare API capacity with an independent confirmed-booking total.
+[x] Keep synthetic fixtures/load traffic separate from genuine usage.
+[x] Compare API capacity with an independent confirmed-booking total.
 [ ] Run concurrent booking experiments and inspect persisted totals.
 [ ] Load test staging at 1/5/10/20 virtual users, subject to host capacity.
 [ ] Proposed run: 1-minute warm-up + 5-minute measurement; 3 repeats.
@@ -109,7 +109,7 @@ STEP 9 - REPORT
 [ ] Describe implementation, security, testing, deployment and experiments.
 [ ] Insert actual pass rates, coverage, dataset counts and measurements.
 [ ] Explain missed performance targets and threats to validity honestly.
-[ ] Develop at least six prioritized future-work topics with benefits.
+[x] Develop at least six prioritized future-work topics with benefits.
 [ ] Export required report formats and visually review every page.
 OUTPUT: revised report with citations, working links and evidence appendix.
 
@@ -158,5 +158,6 @@ Days 1-2: baseline + harness; 3-5: backend; 6-7: auth;
 8-9: tests/CI; 10-11: deployment; 12-13: evaluation; 14-15: report.
 All percentages, load levels and timing above are proposed targets/plans,
 not measured achievements.
+
 
 
