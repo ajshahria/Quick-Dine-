@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Cupstory",
+    "slug": "cupstory",
+    "id": "6a910be3954d3e91bfa3702f",
+    "previousImage": "/images/restaurants/cupstory-coffee.png",
+    "image": "/images/restaurants/cupstory-interior.png",
+    "verifiedAt": "2026-10-17T14:53:03.330Z"
+  },
+  {
+    "name": "Madgrill",
+    "slug": "madgrill",
+    "id": "6a910755bed335dd759f6fe4",
+    "previousImage": "/images/restaurants/madgrill-chicken.png",
+    "image": "/images/restaurants/madgrill-interior.png",
+    "verifiedAt": "2026-10-17T14:53:03.500Z"
+  }
+]
