@@ -273,6 +273,7 @@ Run these from `client/`:
 | `npm run build` | Type-check and build the production client |
 | `npm run lint` | Run ESLint across the client |
 | `npm run preview` | Preview the production build locally |
+| `npm test` | Run the client test suite |
 
 ### Server scripts
 
