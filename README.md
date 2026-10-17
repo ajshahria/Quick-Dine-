@@ -90,12 +90,44 @@ flowchart LR
 
 The client uses a same-origin `/api` proxy and cookie authentication. The JWT is stored in an HttpOnly cookie, with Secure enabled in production and SameSite=Lax. Axios sends credentials and obtains a CSRF token for mutations. The server verifies the token and persisted session, reloads the user and role, and applies authorization and validation.
 
-Restaurant images uploaded by owners are held temporarily in memory and streamed to Cloudinary. Restaurant profiles, user accounts, and bookings are stored in MongoDB.
+Restaurant images uploaded by owners are held temporarily in memory and streamed to Cloudinary. Listings can also use images served from the client's `public/` directory. Each restaurant's `image` field in MongoDB stores either a Cloudinary URL or a public image path. Restaurant profiles, user accounts, and bookings are stored in MongoDB.
 
 For detailed design documentation, see:
 
 - [Client architecture](client/ARCHITECTURE.md)
 - [Server architecture](server/ARCHITECTURE.md)
+
+## Restaurant cover images
+
+Cupstory and Madgrill use generated indoor views as illustrative cover images. These are not verified photographs of the actual venues.
+
+| Restaurant | Cover | Source asset |
+|---|---|---|
+| Cupstory | Cozy café interior | [cupstory-interior.png](client/public/images/restaurants/cupstory-interior.png) |
+| Madgrill | Warm grill restaurant interior | [madgrill-interior.png](client/public/images/restaurants/madgrill-interior.png) |
+
+These images are served at `/images/restaurants/cupstory-interior.png` and `/images/restaurants/madgrill-interior.png`. They are included in the client build and do not require Cloudinary. Cloudinary uploads returned HTTP 403 during this update, so the project-hosted assets were used.
+
+To inspect the two matching database records without changing them, run from the project root after installing server dependencies and configuring `server/.env`:
+
+```bash
+cd server
+node scripts/update-restaurant-images.mjs
+```
+
+Both preview and apply modes require `MONGODB_URI` in `server/.env`. The `--local` mode does not require `CLOUDINARY_URL`. Without `--apply`, the script does not upload images or write database changes.
+
+To apply the project-hosted interior images, continue from `server/`:
+
+```bash
+node scripts/update-restaurant-images.mjs --apply --local
+```
+
+The script requires exactly one record matching each restaurant's name and slug (`Cupstory` / `cupstory`, `Madgrill` / `madgrill`). It updates only their image fields. It verifies the saved paths after each update. Previous and new values are recorded under `docs/evidence/restaurant-images/`. The script does not create missing restaurants. It does not run the destructive seed script.
+
+For Cloudinary hosting, configure `CLOUDINARY_URL` and run `node scripts/update-restaurant-images.mjs --apply` without `--local`. This uploads the images and saves their Cloudinary URLs instead. It checks that each uploaded URL returns an image before saving it to the database.
+
+After changing project-hosted images, rebuild and deploy the frontend so the hosted website can serve the files. Updating the database alone does not publish new image assets.
 
 ## Technology stack
 
@@ -149,6 +181,7 @@ QuickDine/
 │   ├── middlewares/            # Authentication and role guards
 │   ├── models/                 # User, Restaurant, and Booking schemas
 │   ├── routes/                 # REST endpoint declarations
+│   ├── scripts/                # Image updates, audits, and development utilities
 │   ├── ARCHITECTURE.md         # Detailed server architecture
 │   ├── seed.ts                 # Destructive development data seed
 │   ├── server.ts               # Express application entry point
@@ -240,6 +273,8 @@ Run these from `client/`:
 | `npm run build` | Type-check and build the production client |
 | `npm run lint` | Run ESLint across the client |
 | `npm run preview` | Preview the production build locally |
+| `npm test` | Run the client test suite |
+| `npm run test:coverage` | Run client tests with coverage |
 
 ### Server scripts
 
@@ -247,9 +282,12 @@ Run these from `server/`:
 
 | Command | Purpose |
 |---|---|
-| `npm run server` | Start the API with Nodemon and TSX |
-| `npm start` | Start the API directly with TSX |
+| `npm run server` / `npm run dev` | Start the API with TSX watch mode |
+| `npm start` | Run the compiled API from `dist/server.js` after building |
 | `npm run build` | Compile TypeScript into `server/dist/` |
+| `npm test` | Build the server and run the Jest suite |
+| `npm run test:coverage` | Run server tests with coverage |
+| `node scripts/update-restaurant-images.mjs` | Preview Cupstory and Madgrill image updates; see [restaurant cover images](#restaurant-cover-images) for apply options |
 
 ## Main application routes
 
@@ -319,7 +357,7 @@ Only confirmed bookings consume the restaurant's slot capacity.
 
 | Variable | Required | Description |
 |---|---|---|
-| `VITE_PUBLIC_API_URL` | Recommended | Full API base URL ending in `/api` |
+| `VITE_PUBLIC_API_URL` | Recommended | Use `/api` for the same-origin proxy, or a full API base URL ending in `/api` |
 
 ### Server
 
