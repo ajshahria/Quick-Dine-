@@ -127,6 +127,8 @@ The script requires exactly one record matching each restaurant's name and slug 
 
 For Cloudinary hosting, configure `CLOUDINARY_URL` and run `node scripts/update-restaurant-images.mjs --apply` without `--local`. This uploads the images and saves their Cloudinary URLs instead.
 
+After changing project-hosted images, rebuild and deploy the frontend so the hosted website can serve the files.
+
 ## Technology stack
 
 ### Client
