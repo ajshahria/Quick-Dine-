@@ -363,7 +363,7 @@ The current seed data also contains a duplicate restaurant slug, so review and c
 - Reviews, displayed aggregate ratings, newsletter submission, and several footer links are currently static UI content.
 - The independent-slot capacity model does not yet account for meal durations or physical table combinations.
 - Legacy bookings lack booking-specific contact snapshots; new bookings persist validated contact details.
-- The automated suites pass locally and in CI. Public deployment checks pass; authenticated live journeys and genuine pilot-data provenance remain to be verified.
+- The automated suites pass locally and in CI. Public deployment checks and the live diner booking/cancellation journey pass; owner/admin live journeys and genuine pilot-data provenance remain to be verified.
 
 More implementation risks and recommended improvements are documented in the client and server architecture files.
 

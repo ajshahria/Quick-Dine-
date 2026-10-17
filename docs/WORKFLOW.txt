@@ -1,6 +1,6 @@
 QUICKDINE - LECTURER TASK WORKFLOW
 Date: 15 October 2026
-Status (17 October 2026): backend/auth/tests implemented; production deployed and public smoke checks pass; report expanded. Authenticated live journeys and genuine pilot evaluation remain open. See IMPLEMENTATION_STATUS.md for measured evidence.
+Status (17 October 2026): backend/auth/tests implemented; production deployed and public smoke checks pass; report expanded. Live diner journey passed; owner/admin live journeys and genuine pilot evaluation remain open. See IMPLEMENTATION_STATUS.md for measured evidence.
 Detailed companion: PROJECT_IMPROVEMENT_PLAN.md
 
 MAIN FLOW
@@ -74,18 +74,18 @@ STEP 6 - DEPLOY
 [x] Render: Express build/start command, PORT and environment secrets.
 [x] Add liveness and database-readiness endpoints.
 [x] Vercel: React build, /api proxy, SPA routes and API configuration.
-[ ] Verify cookie forwarding and prevent private response caching.
+[x] Verify cookie forwarding and prevent private response caching.
 OUTPUT: frontend URL + direct API URL + readiness URL + deployment IDs.
 
 STEP 7 - LIVE SMOKE TEST
 [x] Check frontend HTTPS, nested-route refresh, direct API and readiness.
-[ ] Register -> login -> refresh -> logout in a real browser.
+[x] Register -> login -> refresh -> logout in a real browser.
 [ ] Owner creates pending restaurant -> admin approves -> diner sees it.
-[ ] Filter cuisine -> view availability -> book with edited contacts.
-[ ] Reload -> verify saved contact details and lower remaining capacity.
+[x] Filter cuisine -> view availability -> book with edited contacts.
+[x] Reload -> verify saved contact details and lower remaining capacity.
 [ ] Reject invalid/overcapacity request -> cancel -> verify seats return.
 [ ] Verify forbidden owner/admin actions and inspect logs.
-[ ] Record timestamp, expected/actual results and sanitized evidence.
+[x] Record timestamp, expected/actual results and sanitized evidence.
 [x] Replace report/README LINK placeholders with verified URLs.
 OUTPUT: smoke-test table; all critical flows pass.
 IF FAILED: repair deployment/code and repeat affected end-to-end flow.

@@ -1,13 +1,13 @@
 # Implementation and evidence — 17 October 2026
 
-The backend, cookie authentication, and automated suites are implemented. The revised frontend and backend are deployed; public HTTP checks pass. Authenticated production browser journeys remain pending.
+The backend, cookie authentication, and automated suites are implemented. The revised frontend and backend are deployed; public HTTP checks pass. The live diner journey passes; owner/admin production browser journeys remain unverified.
 
 ## Verified local results
 
 | Suite | Passed / total | Failed / skipped | Pass rate | Statements | Branches | Functions | Lines |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Jest + Supertest API | 41 / 41 | 0 / 0 | 100% | 97.76% | 93.91% | 98.11% | 97.76% |
-| Vitest + React Testing Library | 47 / 47 | 0 / 0 | 100% | 89.59% | 77.65% | 84.47% | 90.90% |
+| Vitest + React Testing Library | 47 / 47 | 0 / 0 | 100% | 89.55% | 77.68% | 84.61% | 90.99% |
 
 Both builds and frontend lint pass. Reports: [counts](evidence/tests/results-summary.json), [API coverage](evidence/tests/api-coverage.json), [frontend coverage](evidence/tests/frontend-coverage.json). Full HTML reports are generated under each application's `coverage/` directory. [GitHub Actions run 39037579672](https://github.com/ajshahria/Quick-Dine-/actions/runs/39037579672) passed both jobs on commit `1f494ee58079e798c8f1d99534cabef0920098c9`, publishing [API artifacts](https://github.com/ajshahria/Quick-Dine-/actions/runs/39037579672/artifacts/12102359024) and [frontend artifacts](https://github.com/ajshahria/Quick-Dine-/actions/runs/39037579672/artifacts/12103090534). Local percentages above come from the saved local reports; hosted artifacts are the authoritative CI results.
 
@@ -43,11 +43,11 @@ The benchmark requires the server build produced by the API test command. `node 
 
 ## Remaining work
 
-The frontend is live at https://quick-dine-jade.vercel.app/ and the API at https://quickdine-api-d604.onrender.com/. Vercel production deployment `dpl_2g8xGo5eWva6csE8GfQCFKGGbQso` builds commit `0376a2028ff543dc3bc88f98d6efef485eb3cded`. Render service `srv-db9nurfavr4c73epap90` uses the improvement branch, root `server`, build `npm ci --include=dev && npm run build`, start `npm start`, and health `/health/ready`.
+The frontend is live at https://quick-dine-jade.vercel.app/ and the API at https://quickdine-api-d604.onrender.com/. Vercel production deployment `dpl_3NZtfTc7xTm9apqWRYRhjnj5SEnJ` builds commit `2bf11c31f9b322ac91a88c3c67d933cb384eb1e1`. Render service `srv-db9nurfavr4c73epap90` uses the improvement branch, root `server`, build `npm ci --include=dev && npm run build`, start `npm start`, and health `/health/ready`.
 
 Vercel uses Config variable `VITE_PUBLIC_API_URL=/api` in Production and Preview. It takes precedence over the legacy `VITE_API_URL` secret-typed variable, which Vercel would not allow converting to Config. The committed rewrite routes `/api/:path*` to Render before the SPA fallback. The production build is manually promoted from the improvement branch; main remains unchanged, so a later main deployment must include these changes before replacing it.
 
-[Deployment smoke evidence](evidence/evaluation/deployment-smoke.json) records HTTP 200 for the frontend, nested search route, direct liveness/readiness and cuisine-filtered frontend API proxy. API responses have `Cache-Control: no-store`. The preview visibly loaded Atlas restaurants. Authenticated live journeys, cookie forwarding and owner/admin production operations are not yet verified. The live registration form requires acceptance of terms; confirmation for a labelled test account and a booking followed by cancellation is pending.
+[Deployment smoke evidence](evidence/evaluation/deployment-smoke.json) records HTTP 200 for the frontend, nested search route, direct liveness/readiness and cuisine-filtered frontend API proxy. API responses have `Cache-Control: no-store`. The preview visibly loaded Atlas restaurants. The live diner journey passed registration, login, reload/session restoration, booking with separate persisted contacts, cancellation and logout through the same-origin proxy. Rain Terrace availability changed 25 -> 23 -> 25 for a two-person test reservation. Its cancelled history persisted after a fresh login. Native browser-popup automation could not reliably confirm cancellation; an in-page confirmation was implemented, covered by the 47 passing frontend tests, deployed, and used successfully. One labelled synthetic account and one cancelled booking remain; exclude them from pilot counts. Owner/admin live journeys and sustained hosted load tests remain open.
 
 The authoritative Google Docs report now contains literature, implementation, evaluation and verified URLs. Its eight-page export was visually reviewed; genuine pilot provenance and sustained staging load experiments remain open. The stored Atlas counts predate any subsequent smoke records and must not be treated as verified pilot recruitment.
 

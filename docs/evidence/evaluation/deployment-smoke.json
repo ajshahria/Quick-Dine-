@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-10-17T14:15:09.8037721Z",
-  "frontendCommit": "0376a2028ff543dc3bc88f98d6efef485eb3cded",
-  "frontendDeployment": "dpl_2g8xGo5eWva6csE8GfQCFKGGbQso",
+  "checkedAt": "2026-10-17T14:33:56.5470950Z",
+  "frontendCommit": "2bf11c31f9b322ac91a88c3c67d933cb384eb1e1",
+  "frontendDeployment": "dpl_3NZtfTc7xTm9apqWRYRhjnj5SEnJ",
   "renderService": "srv-db9nurfavr4c73epap90",
   "checks": [
     {
@@ -35,6 +35,19 @@
       "cacheControl": "no-store"
     }
   ],
-  "authenticatedBrowserSmoke": "pending approval for live test account",
-  "limitations": "Read-only smoke checks do not verify authenticated booking or sustained performance."
+  "authenticatedBrowserSmoke": "Passed registration, login, reload/session restoration, booking, separate persisted contact, cancellation and logout.",
+  "limitations": "Owner/admin live journeys and sustained hosted performance remain unverified. Native popup automation failed; deployed in-page confirmation completed cancellation.",
+  "dinerJourney": {
+    "bookingReference": "GR-CB045EFC",
+    "restaurant": "Rain Terrace",
+    "date": "2026-10-17",
+    "time": "21:00 Asia/Dhaka",
+    "guests": 2,
+    "availableBefore": 25,
+    "availableAfter": 23,
+    "contactPersistence": "Verified via authenticated /api/bookings/my after page reload; separate from account contact",
+    "testData": "One labelled synthetic account and one test booking; exclude from genuine pilot counts",
+    "cancellation": "Verified cancelled in dining history after fresh login",
+    "availableAfterCancellation": 25
+  }
 }
