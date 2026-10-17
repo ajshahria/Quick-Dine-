@@ -115,7 +115,7 @@ cd server
 node scripts/update-restaurant-images.mjs
 ```
 
-Both preview and apply modes require `MONGODB_URI` in `server/.env`.
+Both preview and apply modes require `MONGODB_URI` in `server/.env`. The `--local` mode does not require `CLOUDINARY_URL`.
 
 To apply the project-hosted interior images, continue from `server/`:
 
