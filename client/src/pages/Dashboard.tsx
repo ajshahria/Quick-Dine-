@@ -16,6 +16,8 @@ export default function Dashboard() {
     const [bookings, setBookings] = useState<any[]>([]);
     const [recommendations, setRecommendations] = useState<any[]>([]);
     const [loadingBookings, setLoadingBookings] = useState(true);
+    const [cancelConfirmation, setCancelConfirmation] = useState<string | null>(null);
+    const [cancelling, setCancelling] = useState(false);
 
     // Fetch user bookings
     useEffect(() => {
@@ -50,17 +52,18 @@ export default function Dashboard() {
     }, []);
 
     const handleCancelBooking = async (bookingId: string) => {
-        if (!window.confirm("Are you sure you want to cancel this booking?")) {
-            return;
-        }
-
+        if (cancelling) return;
+        setCancelling(true);
         try {
            await api.put(`/bookings/${bookingId}/cancel`)
             setBookings((prev)=>prev.map((b)=>(b._id === bookingId ? {...b, status:"cancelled"}:b)))
 
             toast.success("Reservation cancelled successfully.");
+            setCancelConfirmation(null);
         } catch (error: any) {
             toast.error(error?.response?.data?.message || error?.message);
+        } finally {
+            setCancelling(false);
         }
     };
 
@@ -163,12 +166,20 @@ export default function Dashboard() {
                                             </div>
 
                                             <div className="flex gap-3 w-full md:w-auto justify-end">
+                                                {cancelConfirmation === b._id ? (
+                                                    <div role="group" aria-label="Confirm booking cancellation" className="space-y-2 text-sm">
+                                                        <p>Cancel this reservation and release {b.guests} seats?</p>
+                                                        <button disabled={cancelling} onClick={() => setCancelConfirmation(null)} className="border px-3 py-2 rounded-sm mr-2 disabled:opacity-50">Keep reservation</button>
+                                                        <button disabled={cancelling} onClick={() => handleCancelBooking(b._id)} className="border px-3 py-2 rounded-sm text-error disabled:opacity-50">{cancelling ? "Cancelling…" : "Confirm cancellation"}</button>
+                                                    </div>
+                                                ) : (
                                                 <button
-                                                    onClick={() => handleCancelBooking(b._id)}
+                                                    onClick={() => setCancelConfirmation(b._id)}
                                                     className="px-5 py-2.5 text-[10px] font-medium tracking-widest uppercase text-error hover:bg-error-container/20 border border-outline-variant/40 rounded-sm cursor-pointer transition-colors"
                                                 >
                                                     Cancel
                                                 </button>
+                                                )}
                                             </div>
                                         </div>
                                     ))}

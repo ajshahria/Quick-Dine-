@@ -156,15 +156,15 @@ describe("complete page journeys",()=>{
     server.use(http.get("http://localhost/api/restaurants/featured",()=>HttpResponse.json({message:"Featured unavailable"},{status:500})));wrapper(<App/>);await screen.findByText("Featured unavailable");
   });
   it("diner cancels a booking and sees dining history",async()=>{
-    commonPages();asRole("user");vi.spyOn(window,"confirm").mockReturnValue(true);
+    commonPages();asRole("user");
     server.use(http.put("http://localhost/api/bookings/b1/cancel",()=>HttpResponse.json({...booked,status:"cancelled"})));
-    wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByRole("button",{name:"Cancel"}));await screen.findByText("No upcoming reservations scheduled.");expect(screen.getByText("Dining History")).toBeInTheDocument();
+    wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByRole("button",{name:"Cancel"}));await userEvent.click(screen.getByRole("button",{name:"Confirm cancellation"}));await screen.findByText("No upcoming reservations scheduled.");expect(screen.getByText("Dining History")).toBeInTheDocument();
   });
   it("diner cancellation decline makes no request and server failure keeps reservation",async()=>{
-    commonPages();asRole("user");const confirm=vi.spyOn(window,"confirm").mockReturnValue(false);
+    commonPages();asRole("user");
     server.use(http.put("http://localhost/api/bookings/b1/cancel",()=>HttpResponse.json({message:"Cancel failed"},{status:500})));
-    wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByRole("button",{name:"Cancel"}));expect(screen.queryByText("Cancel failed")).not.toBeInTheDocument();
-    confirm.mockReturnValue(true);await userEvent.click(screen.getByRole("button",{name:"Cancel"}));await screen.findByText("Cancel failed");expect(screen.getByRole("button",{name:"Cancel"})).toBeInTheDocument();
+    wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByRole("button",{name:"Cancel"}));await userEvent.click(screen.getByRole("button",{name:"Keep reservation"}));expect(screen.queryByText("Cancel failed")).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button",{name:"Cancel"}));await userEvent.click(screen.getByRole("button",{name:"Confirm cancellation"}));await screen.findByText("Cancel failed");expect(screen.getByRole("button",{name:"Confirm cancellation"})).toBeInTheDocument();
   });
   it("diner sees empty bookings and failed recommendations",async()=>{
     asRole("user");server.use(http.get("http://localhost/api/bookings/my",()=>HttpResponse.json([])),http.get("http://localhost/api/restaurants/featured",()=>HttpResponse.json({message:"Recommendation unavailable"},{status:500})));
