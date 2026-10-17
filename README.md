@@ -115,6 +115,8 @@ cd server
 node scripts/update-restaurant-images.mjs
 ```
 
+Both preview and apply modes require `MONGODB_URI` in `server/.env`.
+
 ## Technology stack
 
 ### Client
