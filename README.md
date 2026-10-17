@@ -117,6 +117,12 @@ node scripts/update-restaurant-images.mjs
 
 Both preview and apply modes require `MONGODB_URI` in `server/.env`.
 
+To apply the project-hosted interior images, continue from `server/`:
+
+```bash
+node scripts/update-restaurant-images.mjs --apply --local
+```
+
 ## Technology stack
 
 ### Client
