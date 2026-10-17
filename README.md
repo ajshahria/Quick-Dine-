@@ -99,7 +99,7 @@ For detailed design documentation, see:
 
 ## Restaurant cover images
 
-Cupstory and Madgrill use generated indoor views as illustrative cover images.
+Cupstory and Madgrill use generated indoor views as illustrative cover images. These are not verified photographs of the actual venues.
 
 ## Technology stack
 
