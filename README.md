@@ -101,6 +101,9 @@ For detailed design documentation, see:
 
 Cupstory and Madgrill use generated indoor views as illustrative cover images. These are not verified photographs of the actual venues.
 
+| Restaurant | Cover | Source asset |
+|---|---|---|
+
 ## Technology stack
 
 ### Client
