@@ -106,7 +106,7 @@ Cupstory and Madgrill use generated indoor views as illustrative cover images. T
 | Cupstory | Cozy café interior | [cupstory-interior.png](client/public/images/restaurants/cupstory-interior.png) |
 | Madgrill | Warm grill restaurant interior | [madgrill-interior.png](client/public/images/restaurants/madgrill-interior.png) |
 
-These images are served at `/images/restaurants/cupstory-interior.png` and `/images/restaurants/madgrill-interior.png`.
+These images are served at `/images/restaurants/cupstory-interior.png` and `/images/restaurants/madgrill-interior.png`. They are included in the client build and do not require Cloudinary.
 
 ## Technology stack
 
