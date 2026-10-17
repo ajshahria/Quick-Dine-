@@ -285,6 +285,7 @@ Run these from `server/`:
 | `npm run server` / `npm run dev` | Start the API with TSX watch mode |
 | `npm start` | Run the compiled API from `dist/server.js` after building |
 | `npm run build` | Compile TypeScript into `server/dist/` |
+| `npm test` | Build the server and run the Jest suite |
 
 ## Main application routes
 
