@@ -29,7 +29,7 @@ The transaction design uses existing bookings rather than introducing a separate
 
 ## Browser and data evidence
 
-Chrome against disposable local services successfully signed in, booked two seats, and displayed the saved booking contact. Reload restored the signed-in user. This is local smoke evidence, not a hosted deployment smoke test.
+Chrome against disposable local services successfully signed in, booked two seats, and displayed the saved booking contact. Reload restored the signed-in user and reservation. The restaurant then displayed six remaining seats from its original capacity of eight. Cancellation reached a confirmation dialog, but browser control was interrupted before its result could be verified; cancellation is covered by API and frontend tests but is not marked browser-verified here. This is local smoke evidence, not a hosted deployment smoke test.
 
 The [read-only Atlas audit](evidence/evaluation/database-summary.json) found 11 users, 10 restaurants and 5 bookings (2 confirmed, 3 cancelled). Stored booking creation timestamps span 10–28 August 2026. No confirmed slot exceeded its restaurant's current capacity. These records have not been established as genuine pilot activity; they must not be reported as 11 pilot participants.
 
@@ -44,5 +44,7 @@ The benchmark requires the server build produced by the API test command. `node 
 ## Remaining work
 
 Complete Render deployment, connect the Vercel same-origin API proxy, and verify production cookie forwarding and all live journeys. Record deployment revisions and URLs. Run a longer staging experiment and establish real-data provenance. Integrate the literature review and evidence into the authoritative report, then export and visually verify it.
+
+Current deployment handoff: Render's free-service form targets `codex/lecturer-improvements`, root `server`, build `npm ci --include=dev && npm run build`, start `npm start`, health `/health/ready`. A strong session secret is entered. Refreshing the repository branch list reset the earlier environment import, so the open import dialog still needs the approved local `.env.render-upload` file. Vercel is waiting for the account's authenticator code. Neither new deployment is claimed live. Do not commit the ignored import files; remove them after successful configuration.
 
 Dependency audit at implementation time: frontend 0 vulnerabilities; server production dependencies 0. The server's full developer dependency tree reported 19 moderate advisories through Jest's transitive dependencies. An incompatible automatic downgrade was not applied.
