@@ -1,6 +1,6 @@
 # Implementation and evidence — 17 October 2026
 
-The backend, cookie authentication, and automated suites are implemented locally. Deployment is in progress; the existing public websites do not yet prove that these changes are live.
+The backend, cookie authentication, and automated suites are implemented. The revised frontend and backend are deployed; public HTTP checks pass. Authenticated production browser journeys remain pending.
 
 ## Verified local results
 
@@ -43,8 +43,12 @@ The benchmark requires the server build produced by the API test command. `node 
 
 ## Remaining work
 
-Complete Render deployment, connect the Vercel same-origin API proxy, and verify production cookie forwarding and all live journeys. Record deployment revisions and URLs. Run a longer staging experiment and establish real-data provenance. Integrate the literature review and evidence into the authoritative report, then export and visually verify it.
+The frontend is live at https://quick-dine-jade.vercel.app/ and the API at https://quickdine-api-d604.onrender.com/. Vercel production deployment `dpl_2g8xGo5eWva6csE8GfQCFKGGbQso` builds commit `0376a2028ff543dc3bc88f98d6efef485eb3cded`. Render service `srv-db9nurfavr4c73epap90` uses the improvement branch, root `server`, build `npm ci --include=dev && npm run build`, start `npm start`, and health `/health/ready`.
 
-Current deployment handoff: Render's free-service form targets `codex/lecturer-improvements`, root `server`, build `npm ci --include=dev && npm run build`, start `npm start`, health `/health/ready`. A strong session secret is entered. Refreshing the repository branch list reset the earlier environment import, so the open import dialog still needs the approved local `.env.render-upload` file. Vercel is waiting for the account's authenticator code. Neither new deployment is claimed live. Do not commit the ignored import files; remove them after successful configuration.
+Vercel uses Config variable `VITE_PUBLIC_API_URL=/api` in Production and Preview. It takes precedence over the legacy `VITE_API_URL` secret-typed variable, which Vercel would not allow converting to Config. The committed rewrite routes `/api/:path*` to Render before the SPA fallback. The production build is manually promoted from the improvement branch; main remains unchanged, so a later main deployment must include these changes before replacing it.
+
+[Deployment smoke evidence](evidence/evaluation/deployment-smoke.json) records HTTP 200 for the frontend, nested search route, direct liveness/readiness and cuisine-filtered frontend API proxy. API responses have `Cache-Control: no-store`. The preview visibly loaded Atlas restaurants. Authenticated live journeys, cookie forwarding and owner/admin production operations are not yet verified. The live registration form requires acceptance of terms; confirmation for a labelled test account and a booking followed by cancellation is pending.
+
+The authoritative Google Docs report now contains literature, implementation, evaluation and verified URLs. Its eight-page export was visually reviewed; genuine pilot provenance and sustained staging load experiments remain open. The stored Atlas counts predate any subsequent smoke records and must not be treated as verified pilot recruitment.
 
 Dependency audit at implementation time: frontend 0 vulnerabilities; server production dependencies 0. The server's full developer dependency tree reported 19 moderate advisories through Jest's transitive dependencies. An incompatible automatic downgrade was not applied.

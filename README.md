@@ -19,7 +19,7 @@ The project contains a React single-page application and an Express REST API bac
 | Hosted web application | [quick-dine-jade.vercel.app](https://quick-dine-jade.vercel.app/) | Live production website |
 | Web application (local) | `http://localhost:5173` | Available after starting the client |
 | API health check (local) | `http://localhost:5000` | Available after starting the server |
-| Hosted API | [quick-dine-server-rust.vercel.app](https://quick-dine-server-rust.vercel.app/) | Configured as the production API |
+| Hosted API | [quickdine-api-d604.onrender.com](https://quickdine-api-d604.onrender.com/health/ready) | Readiness HTTP 200 verified 17 October 2026 |
 
 Visit the live application at [https://quick-dine-jade.vercel.app/](https://quick-dine-jade.vercel.app/). To run the project yourself, follow the [local setup](#run-the-project-locally), start both services, and open `http://localhost:5173` in a browser. Vite may choose a different port if 5173 is already occupied; use the URL printed in the client terminal.
 
@@ -124,7 +124,7 @@ For detailed design documentation, see:
 ### Deployment
 
 - Client and server include Vercel configuration.
-- The client supports a configurable API URL through `VITE_API_URL`.
+- The client supports a configurable API URL through `VITE_PUBLIC_API_URL`.
 - The server exports its Express app for a serverless Vercel runtime and starts a regular listener during local development.
 
 ## Project structure
@@ -217,7 +217,7 @@ npm install
 Create or update `client/.env`:
 
 ```dotenv
-VITE_API_URL=/api
+VITE_PUBLIC_API_URL=/api
 ```
 
 Start the Vite development server:
@@ -319,7 +319,7 @@ Only confirmed bookings consume the restaurant's slot capacity.
 
 | Variable | Required | Description |
 |---|---|---|
-| `VITE_API_URL` | Recommended | Full API base URL ending in `/api` |
+| `VITE_PUBLIC_API_URL` | Recommended | Full API base URL ending in `/api` |
 
 ### Server
 
@@ -350,7 +350,7 @@ npm install
 npm run build
 ```
 
-Use `VITE_API_URL=/api` and configure a Vercel rewrite to the deployed backend before publishing the client. Configure the server secrets and exact `FRONTEND_ORIGINS` in Render. See [implementation status and measured evidence](docs/IMPLEMENTATION_STATUS.md), [workflow](docs/WORKFLOW.txt), and [literature review](docs/LITERATURE_REVIEW.md).
+Use `VITE_PUBLIC_API_URL=/api` and configure a Vercel rewrite to the deployed backend before publishing the client. Configure the server secrets and exact `FRONTEND_ORIGINS` in Render. See [implementation status and measured evidence](docs/IMPLEMENTATION_STATUS.md), [workflow](docs/WORKFLOW.txt), and [literature review](docs/LITERATURE_REVIEW.md).
 
 ## Seed script warning
 
@@ -363,7 +363,7 @@ The current seed data also contains a duplicate restaurant slug, so review and c
 - Reviews, displayed aggregate ratings, newsletter submission, and several footer links are currently static UI content.
 - The independent-slot capacity model does not yet account for meal durations or physical table combinations.
 - Legacy bookings lack booking-specific contact snapshots; new bookings persist validated contact details.
-- The automated suites pass locally; hosted deployment verification and genuine pilot-data provenance must be documented separately.
+- The automated suites pass locally and in CI. Public deployment checks pass; authenticated live journeys and genuine pilot-data provenance remain to be verified.
 
 More implementation risks and recommended improvements are documented in the client and server architecture files.
 

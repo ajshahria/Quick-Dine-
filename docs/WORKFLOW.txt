@@ -1,6 +1,6 @@
 QUICKDINE - LECTURER TASK WORKFLOW
 Date: 15 October 2026
-Status (17 October 2026): backend/auth/tests implemented and locally verified; deployment and report integration in progress. See IMPLEMENTATION_STATUS.md for measured evidence.
+Status (17 October 2026): backend/auth/tests implemented; production deployed and public smoke checks pass; report expanded. Authenticated live journeys and genuine pilot evaluation remain open. See IMPLEMENTATION_STATUS.md for measured evidence.
 Detailed companion: PROJECT_IMPROVEMENT_PLAN.md
 
 MAIN FLOW
@@ -49,7 +49,7 @@ GATE: invalid requests fail; correct requests persist; no overbooking.
 STEP 4 - AUTHENTICATION
 [x] Login/register set HttpOnly cookies; Secure in production.
 [x] Use SameSite appropriate to the deployment topology.
-[ ] Prefer frontend /api proxy to Render for same-origin browser access.
+[x] Prefer frontend /api proxy to Render for same-origin browser access.
 [x] Update server middleware AND restricted restaurant-detail access.
 [x] Remove localStorage token state and Bearer injection.
 [x] Restore sessions using /api/auth/me; implement server logout.
@@ -71,14 +71,14 @@ IF FAILED: fix the relevant code, rerun affected checks, then full gate.
 
 STEP 6 - DEPLOY
 [ ] Atlas: database, restricted user, network access and indexes.
-[ ] Render: Express build/start command, PORT and environment secrets.
+[x] Render: Express build/start command, PORT and environment secrets.
 [x] Add liveness and database-readiness endpoints.
-[ ] Vercel: React build, /api proxy, SPA routes and API configuration.
+[x] Vercel: React build, /api proxy, SPA routes and API configuration.
 [ ] Verify cookie forwarding and prevent private response caching.
 OUTPUT: frontend URL + direct API URL + readiness URL + deployment IDs.
 
 STEP 7 - LIVE SMOKE TEST
-[ ] Check frontend HTTPS, nested-route refresh, direct API and readiness.
+[x] Check frontend HTTPS, nested-route refresh, direct API and readiness.
 [ ] Register -> login -> refresh -> logout in a real browser.
 [ ] Owner creates pending restaurant -> admin approves -> diner sees it.
 [ ] Filter cuisine -> view availability -> book with edited contacts.
@@ -86,7 +86,7 @@ STEP 7 - LIVE SMOKE TEST
 [ ] Reject invalid/overcapacity request -> cancel -> verify seats return.
 [ ] Verify forbidden owner/admin actions and inspect logs.
 [ ] Record timestamp, expected/actual results and sanitized evidence.
-[ ] Replace report/README LINK placeholders with verified URLs.
+[x] Replace report/README LINK placeholders with verified URLs.
 OUTPUT: smoke-test table; all critical flows pass.
 IF FAILED: repair deployment/code and repeat affected end-to-end flow.
 
@@ -104,13 +104,13 @@ OUTPUT: raw data + reproducible scripts + tables/charts + limitations.
 RULE: no real data available means disclose the gap, not invent users.
 
 STEP 9 - REPORT
-[ ] Read and verify approximately 8-12 relevant scholarly/technical sources.
+[x] Read and verify approximately 8-12 relevant scholarly/technical sources.
 [ ] Compare related systems and explain the supported research gap.
-[ ] Describe implementation, security, testing, deployment and experiments.
-[ ] Insert actual pass rates, coverage, dataset counts and measurements.
-[ ] Explain missed performance targets and threats to validity honestly.
+[x] Describe implementation, security, testing, deployment and experiments.
+[x] Insert actual pass rates, coverage, dataset counts and measurements.
+[x] Explain missed performance targets and threats to validity honestly.
 [x] Develop at least six prioritized future-work topics with benefits.
-[ ] Export required report formats and visually review every page.
+[x] Export required report formats and visually review every page.
 OUTPUT: revised report with citations, working links and evidence appendix.
 
 STEP 10 - FINAL HANDOVER

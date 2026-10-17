@@ -1,0 +1,40 @@
+{
+  "checkedAt": "2026-10-17T14:15:09.8037721Z",
+  "frontendCommit": "0376a2028ff543dc3bc88f98d6efef485eb3cded",
+  "frontendDeployment": "dpl_2g8xGo5eWva6csE8GfQCFKGGbQso",
+  "renderService": "srv-db9nurfavr4c73epap90",
+  "checks": [
+    {
+      "url": "https://quick-dine-jade.vercel.app/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, must-revalidate, max-age=0"
+    },
+    {
+      "url": "https://quick-dine-jade.vercel.app/search",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "cacheControl": "public, must-revalidate, max-age=0"
+    },
+    {
+      "url": "https://quickdine-api-d604.onrender.com/health/live",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": ""
+    },
+    {
+      "url": "https://quickdine-api-d604.onrender.com/health/ready",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": ""
+    },
+    {
+      "url": "https://quick-dine-jade.vercel.app/api/restaurants?cuisine=Italian",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "cacheControl": "no-store"
+    }
+  ],
+  "authenticatedBrowserSmoke": "pending approval for live test account",
+  "limitations": "Read-only smoke checks do not verify authenticated booking or sustained performance."
+}
