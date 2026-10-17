@@ -108,6 +108,13 @@ Cupstory and Madgrill use generated indoor views as illustrative cover images. T
 
 These images are served at `/images/restaurants/cupstory-interior.png` and `/images/restaurants/madgrill-interior.png`. They are included in the client build and do not require Cloudinary. Cloudinary uploads returned HTTP 403 during this update, so the project-hosted assets were used.
 
+To inspect the two matching database records without changing them, run from the project root after installing server dependencies and configuring `server/.env`:
+
+```bash
+cd server
+node scripts/update-restaurant-images.mjs
+```
+
 ## Technology stack
 
 ### Client
