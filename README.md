@@ -283,7 +283,7 @@ Run these from `server/`:
 | Command | Purpose |
 |---|---|
 | `npm run server` / `npm run dev` | Start the API with TSX watch mode |
-| `npm start` | Start the API directly with TSX |
+| `npm start` | Run the compiled API from `dist/server.js` after building |
 | `npm run build` | Compile TypeScript into `server/dist/` |
 
 ## Main application routes
