@@ -357,7 +357,7 @@ Only confirmed bookings consume the restaurant's slot capacity.
 
 | Variable | Required | Description |
 |---|---|---|
-| `VITE_PUBLIC_API_URL` | Recommended | Full API base URL ending in `/api` |
+| `VITE_PUBLIC_API_URL` | Recommended | Use `/api` for the same-origin proxy, or a full API base URL ending in `/api` |
 
 ### Server
 
