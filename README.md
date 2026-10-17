@@ -274,6 +274,7 @@ Run these from `client/`:
 | `npm run lint` | Run ESLint across the client |
 | `npm run preview` | Preview the production build locally |
 | `npm test` | Run the client test suite |
+| `npm run test:coverage` | Run client tests with coverage |
 
 ### Server scripts
 
