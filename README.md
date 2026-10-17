@@ -123,6 +123,8 @@ To apply the project-hosted interior images, continue from `server/`:
 node scripts/update-restaurant-images.mjs --apply --local
 ```
 
+The script requires exactly one record matching each restaurant's name and slug (`Cupstory` / `cupstory`, `Madgrill` / `madgrill`).
+
 ## Technology stack
 
 ### Client
