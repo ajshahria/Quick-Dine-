@@ -282,7 +282,7 @@ Run these from `server/`:
 
 | Command | Purpose |
 |---|---|
-| `npm run server` | Start the API with Nodemon and TSX |
+| `npm run server` / `npm run dev` | Start the API with TSX watch mode |
 | `npm start` | Start the API directly with TSX |
 | `npm run build` | Compile TypeScript into `server/dist/` |
 
