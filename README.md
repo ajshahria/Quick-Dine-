@@ -125,7 +125,7 @@ node scripts/update-restaurant-images.mjs --apply --local
 
 The script requires exactly one record matching each restaurant's name and slug (`Cupstory` / `cupstory`, `Madgrill` / `madgrill`). It updates only their image fields. It verifies the saved paths after each update. Previous and new values are recorded under `docs/evidence/restaurant-images/`. The script does not create missing restaurants. It does not run the destructive seed script.
 
-For Cloudinary hosting, configure `CLOUDINARY_URL` and run `node scripts/update-restaurant-images.mjs --apply` without `--local`. This uploads the images and saves their Cloudinary URLs instead.
+For Cloudinary hosting, configure `CLOUDINARY_URL` and run `node scripts/update-restaurant-images.mjs --apply` without `--local`. This uploads the images and saves their Cloudinary URLs instead. It checks that each uploaded URL returns an image before saving it to the database.
 
 After changing project-hosted images, rebuild and deploy the frontend so the hosted website can serve the files. Updating the database alone does not publish new image assets.
 
