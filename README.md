@@ -123,7 +123,7 @@ To apply the project-hosted interior images, continue from `server/`:
 node scripts/update-restaurant-images.mjs --apply --local
 ```
 
-The script requires exactly one record matching each restaurant's name and slug (`Cupstory` / `cupstory`, `Madgrill` / `madgrill`). It updates only their image fields.
+The script requires exactly one record matching each restaurant's name and slug (`Cupstory` / `cupstory`, `Madgrill` / `madgrill`). It updates only their image fields. It verifies the saved paths after each update.
 
 ## Technology stack
 
