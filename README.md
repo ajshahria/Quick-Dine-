@@ -103,6 +103,7 @@ Cupstory and Madgrill use generated indoor views as illustrative cover images. T
 
 | Restaurant | Cover | Source asset |
 |---|---|---|
+| Cupstory | Cozy café interior | [cupstory-interior.png](client/public/images/restaurants/cupstory-interior.png) |
 
 ## Technology stack
 
