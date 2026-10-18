@@ -1,0 +1,42 @@
+{
+  "startedAt": "2026-10-18T10:44:13.640Z",
+  "finishedAt": "2026-10-18T10:44:33.724Z",
+  "completed": false,
+  "commit": "e60f030a78851bdbfd0891c62a533e4aafe1100a",
+  "environment": {
+    "os": "win32",
+    "node": "v24.12.0",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-1235U",
+    "memoryGiB": 7.7,
+    "clientLocation": "User Windows computer in Asia/Dhaka; WAN measurements"
+  },
+  "dataset": {
+    "source": "Public approved records currently served by deployed Atlas-backed API",
+    "provenance": "Unknown seed/demo/genuine mixture; not evidence of genuine customer adoption"
+  },
+  "method": {
+    "durationSecondsPerLevel": 300,
+    "concurrencyLevels": [
+      5
+    ],
+    "repeatsPerLevel": 1,
+    "warmupRequestsPerLevel": 10,
+    "perWorkerMaximumRequestsPerSecond": 1,
+    "globalMaximumWorkers": 5,
+    "requestTimeoutMs": 10000,
+    "mix": "50% cuisine listing, 50% availability; alternating Vercel proxy/direct Render; full response body consumed",
+    "workload": "Paced closed-loop read-only workload; not maximum sustainable capacity or a write-contention test",
+    "failureStop": "10 consecutive failures or >10% failures after at least 20 measured requests",
+    "warmup": "Warm-up latency excluded from measured percentiles; raw warm-up samples retained"
+  },
+  "limitations": [
+    "Existing record provenance unknown",
+    "Only one run per load level",
+    "Small dataset",
+    "Client/network latency included",
+    "No maximum-capacity or write-load claim",
+    "Not a genuine-user pilot"
+  ],
+  "runs": [],
+  "stopReason": "TimeoutError: The operation was aborted due to timeout"
+}

@@ -1,0 +1,2 @@
+# Keep PDF cross-reference byte offsets intact on Windows checkouts.
+*.pdf binary
