@@ -390,6 +390,10 @@ npm run build
 
 Use `VITE_PUBLIC_API_URL=/api` and configure a Vercel rewrite to the deployed backend before publishing the client. Configure the server secrets and exact `FRONTEND_ORIGINS` in Render. See [implementation status and measured evidence](docs/IMPLEMENTATION_STATUS.md), [workflow](docs/WORKFLOW.txt), and [literature review](docs/LITERATURE_REVIEW.md).
 
+The [18 October verification supplement](docs/VERIFICATION_RESULTS_2026-10-18.md)
+includes owner/admin browser results and hosted measurements, with a
+[printable PDF](output/pdf/QuickDine_Verification_Supplement_2026-10-18.pdf).
+
 ## Seed script warning
 
 `server/seed.ts` deletes all users, restaurants, and bookings before inserting development data. It must never be run against a production or important database.
@@ -401,7 +405,7 @@ The current seed data also contains a duplicate restaurant slug, so review and c
 - Reviews, displayed aggregate ratings, newsletter submission, and several footer links are currently static UI content.
 - The independent-slot capacity model does not yet account for meal durations or physical table combinations.
 - Legacy bookings lack booking-specific contact snapshots; new bookings persist validated contact details.
-- The automated suites pass locally and in CI. Public deployment checks and the live diner booking/cancellation journey pass; owner/admin live journeys and genuine pilot-data provenance remain to be verified.
+- The automated suites pass locally and in CI. Diner and owner/admin live checks pass for the recorded workflows. The [18 October evaluation supplement](docs/VERIFICATION_RESULTS_2026-10-18.md) records deployed-data capacity comparisons and paced hosted measurements. Genuine customer provenance remains unknown; these results do not establish pilot adoption or maximum sustainable load.
 
 More implementation risks and recommended improvements are documented in the client and server architecture files.
 

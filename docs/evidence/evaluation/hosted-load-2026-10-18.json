@@ -1,0 +1,226 @@
+{
+  "startedAt": "2026-10-18T06:59:27.932Z",
+  "finishedAt": "2026-10-18T10:51:42.886Z",
+  "completed": true,
+  "commit": "e60f030a78851bdbfd0891c62a533e4aafe1100a",
+  "environment": {
+    "os": "win32",
+    "node": "v24.12.0",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-1235U",
+    "memoryGiB": 7.7,
+    "clientLocation": "User Windows computer in Asia/Dhaka; WAN measurements"
+  },
+  "dataset": {
+    "source": "Public approved records currently served by deployed Atlas-backed API",
+    "provenance": "Unknown seed/demo/genuine mixture; not evidence of genuine customer adoption",
+    "approvedRestaurants": 8,
+    "excludedQaRestaurants": 0
+  },
+  "method": {
+    "durationSecondsPerLevel": 300,
+    "concurrencyLevels": [
+      1,
+      3,
+      5
+    ],
+    "repeatsPerLevel": 1,
+    "warmupRequestsPerLevel": 10,
+    "perWorkerMaximumRequestsPerSecond": 1,
+    "globalMaximumWorkers": 5,
+    "requestTimeoutMs": 10000,
+    "mix": "50% cuisine listing, 50% availability; alternating Vercel proxy/direct Render; full response body consumed",
+    "workload": "Paced closed-loop read-only workload; not maximum sustainable capacity or a write-contention test",
+    "failureStop": "10 consecutive failures or >10% failures after at least 20 measured requests",
+    "warmup": "Warm-up latency excluded from measured percentiles; raw warm-up samples retained"
+  },
+  "limitations": [
+    "Existing record provenance unknown",
+    "Only one run per load level",
+    "Small dataset",
+    "Client/network latency included",
+    "No maximum-capacity or write-load claim",
+    "Not a genuine-user pilot",
+    "Accepted five-worker repeat occurred later than first two phases after a client interruption; network/host conditions may differ",
+    "Interrupted phase retained separately, not silently discarded"
+  ],
+  "runs": [
+    {
+      "concurrency": 1,
+      "seconds": 300.428,
+      "requests": 298,
+      "errors": 0,
+      "p50Ms": 702.82,
+      "p95Ms": 780.73,
+      "p99Ms": 980.02,
+      "maxMs": 1118.63,
+      "requestsPerSecond": 0.992,
+      "byTarget": {
+        "vercel-proxy": {
+          "requests": 149,
+          "errors": 0,
+          "p50Ms": 709.83,
+          "p95Ms": 821.36,
+          "p99Ms": 980.02,
+          "maxMs": 1118.63
+        },
+        "direct-render": {
+          "requests": 149,
+          "errors": 0,
+          "p50Ms": 701.5,
+          "p95Ms": 767.69,
+          "p99Ms": 810.27,
+          "maxMs": 1071.28
+        }
+      },
+      "byEndpoint": {
+        "cuisine-listing": {
+          "requests": 148,
+          "errors": 0,
+          "p50Ms": 515.79,
+          "p95Ms": 585.49,
+          "p99Ms": 980.02,
+          "maxMs": 1071.28
+        },
+        "availability": {
+          "requests": 150,
+          "errors": 0,
+          "p50Ms": 738.45,
+          "p95Ms": 788.4,
+          "p99Ms": 953.47,
+          "maxMs": 1118.63
+        }
+      }
+    },
+    {
+      "concurrency": 3,
+      "seconds": 300.256,
+      "requests": 892,
+      "errors": 0,
+      "p50Ms": 697.98,
+      "p95Ms": 763.82,
+      "p99Ms": 965.13,
+      "maxMs": 1221.34,
+      "requestsPerSecond": 2.971,
+      "byTarget": {
+        "vercel-proxy": {
+          "requests": 446,
+          "errors": 0,
+          "p50Ms": 700.72,
+          "p95Ms": 783.78,
+          "p99Ms": 1113,
+          "maxMs": 1221.34
+        },
+        "direct-render": {
+          "requests": 446,
+          "errors": 0,
+          "p50Ms": 678.58,
+          "p95Ms": 747.03,
+          "p99Ms": 768.29,
+          "maxMs": 793.31
+        }
+      },
+      "byEndpoint": {
+        "cuisine-listing": {
+          "requests": 446,
+          "errors": 0,
+          "p50Ms": 510.07,
+          "p95Ms": 557.55,
+          "p99Ms": 936.22,
+          "maxMs": 1022
+        },
+        "availability": {
+          "requests": 446,
+          "errors": 0,
+          "p50Ms": 728.98,
+          "p95Ms": 781.6,
+          "p99Ms": 1113,
+          "maxMs": 1221.34
+        }
+      }
+    },
+    {
+      "concurrency": 5,
+      "timingValid": true,
+      "maxEventLoopGapMs": 3531.95,
+      "seconds": 300.427,
+      "requests": 1443,
+      "errors": 0,
+      "p50Ms": 718.02,
+      "p95Ms": 885.02,
+      "p99Ms": 1906.92,
+      "maxMs": 3903.84,
+      "requestsPerSecond": 4.803,
+      "byTarget": {
+        "vercel-proxy": {
+          "requests": 722,
+          "errors": 0,
+          "p50Ms": 716.63,
+          "p95Ms": 923.17,
+          "p99Ms": 1878.85,
+          "maxMs": 3717.36
+        },
+        "direct-render": {
+          "requests": 721,
+          "errors": 0,
+          "p50Ms": 718.85,
+          "p95Ms": 791.45,
+          "p99Ms": 2018.22,
+          "maxMs": 3903.84
+        }
+      },
+      "byEndpoint": {
+        "cuisine-listing": {
+          "requests": 721,
+          "errors": 0,
+          "p50Ms": 519.12,
+          "p95Ms": 683.74,
+          "p99Ms": 1081.49,
+          "maxMs": 3660.2
+        },
+        "availability": {
+          "requests": 722,
+          "errors": 0,
+          "p50Ms": 747.36,
+          "p95Ms": 1020.74,
+          "p99Ms": 1906.92,
+          "maxMs": 3903.84
+        }
+      }
+    }
+  ],
+  "discovery": {
+    "status": 200,
+    "latencyMs": 1108.87
+  },
+  "date": "2026-10-19",
+  "sourceFiles": [
+    "hosted-load-interrupted-2026-10-18.json",
+    "hosted-c5-repeat-2026-10-18.json"
+  ],
+  "excludedAttempt": {
+    "concurrency": 5,
+    "requests": 1342,
+    "errors": 4,
+    "reason": "Original last phase had four hour-long failed requests despite 10-second timeouts. Entire phase excluded as client timing interruption, retained in source files; cause not independently diagnosed."
+  },
+  "measurementWindows": [
+    {
+      "concurrency": 1,
+      "startedAt": "2026-10-18T06:59:36.631Z",
+      "lastRequestAt": "2026-10-18T07:04:36.315Z",
+      "seconds": 300.428
+    },
+    {
+      "concurrency": 3,
+      "startedAt": "2026-10-18T07:04:43.002Z",
+      "lastRequestAt": "2026-10-18T07:09:42.757Z",
+      "seconds": 300.256
+    },
+    {
+      "concurrency": 5,
+      "startedAt": "2026-10-18T10:46:42.424Z",
+      "lastRequestAt": "2026-10-18T10:51:42.333Z",
+      "seconds": 300.427
+    }
+  ]
+}

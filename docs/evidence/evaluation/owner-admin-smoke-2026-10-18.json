@@ -1,0 +1,155 @@
+{
+  "verifiedAt": "2026-10-18T07:13:11.590Z",
+  "scope": "Live Vercel/Render/Atlas owner/admin workflow using a synthetic fixture",
+  "applicationCommit": "e60f030a78851bdbfd0891c62a533e4aafe1100a",
+  "fixture": {
+    "name": "QA Verification 20261018",
+    "restaurantId": "6ad46ef80e10ad4bc661c0bd",
+    "finalStatus": "rejected",
+    "synthetic": true,
+    "bookings": [
+      {
+        "reference": "GR-09E7EFF1",
+        "guests": 5,
+        "time": "19:00",
+        "date": "2026-10-19",
+        "finalStatus": "cancelled"
+      },
+      {
+        "reference": "GR-A67B1F0A",
+        "guests": 2,
+        "time": "20:00",
+        "date": "2026-10-19",
+        "finalStatus": "completed"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "at": "2026-10-18T07:02:51.466Z",
+      "check": "owner-submission",
+      "expected": "pending",
+      "actual": "Registration Pending Approval; 6 seats",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:02:51.480Z",
+      "check": "pending-public-discovery",
+      "expected": "0 matching restaurants",
+      "actual": "0 Restaurants Available for exact QA name",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:03:28.624Z",
+      "check": "admin-approval-and-public-discovery",
+      "expected": "approved and 1 matching public restaurant",
+      "actual": "APPROVED; 1 Restaurant Available",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:03:55.782Z",
+      "check": "owner-capacity-update",
+      "expected": "6 -> 8 seats persisted",
+      "actual": "Owner profile 8; fresh public availability 8",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:04:32.283Z",
+      "check": "competing-five-guest-bookings",
+      "expected": "only one of two five-guest submissions fits an eight-seat slot",
+      "actual": "B confirmed GR-09E7EFF1; owner lists exactly one confirmed booking; A not confirmed",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:06:08.067Z",
+      "check": "overcapacity-rejection",
+      "expected": "five more guests rejected when three seats remain",
+      "actual": "Only 3 seats are available for this time slot",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:06:30.387Z",
+      "check": "owner-protected-capacity-edit",
+      "expected": "capacity reduction below five confirmed guests rejected",
+      "actual": "Capacity cannot be lower than confirmed reservations",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:07:42.413Z",
+      "check": "owner-admin-role-guards",
+      "expected": "owner denied admin dashboard and admin API",
+      "actual": "Access Denied UI; Access denied, admin role required API",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:07:42.413Z",
+      "check": "owner-cancellation",
+      "expected": "confirmed reservation becomes cancelled",
+      "actual": "GR-09E7EFF1 CANCELLED; no complete/cancel controls",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:08:07.628Z",
+      "check": "owner-cancellation-releases-capacity",
+      "expected": "19:00 availability returns from 3 to 8",
+      "actual": "19:00 8 seats on 2026-10-19",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:08:49.137Z",
+      "check": "owner-completion",
+      "expected": "two-guest reservation becomes completed and controls disappear",
+      "actual": "GR-A67B1F0A COMPLETED; GR-09E7EFF1 CANCELLED",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:09:06.393Z",
+      "check": "admin-suspension",
+      "expected": "QA restaurant hidden; owner sees rejection",
+      "actual": "Admin REJECTED; public No Restaurants Found; owner Registration Denied",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:09:54.357Z",
+      "check": "admin-reapproval",
+      "expected": "public discovery and owner dashboard restored",
+      "actual": "1 public restaurant; owner APPROVED with terminal booking history intact",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:10:08.615Z",
+      "check": "owner-logout-revocation",
+      "expected": "owner dashboard and bookings API require login",
+      "actual": "Login to continue; Not authorized; please sign in",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:10:08.615Z",
+      "check": "final-fixture-suspension",
+      "expected": "QA fixture rejected and hidden",
+      "actual": "Admin REJECTED; public 0 restaurants",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T07:13:11.241Z",
+      "check": "owner-login-and-refresh",
+      "expected": "same QA account and suspended venue state restored after login and reload",
+      "actual": "QA owner session restored; Registration Denied for suspended QA venue",
+      "pass": true
+    },
+    {
+      "at": "2026-10-18T10:42:57.734Z",
+      "check": "admin-analytics",
+      "expected": "updated totals and both terminal QA booking statuses visible",
+      "actual": "11 venues; 9 total bookings; QA completion COMPLETED and QA cancellation CANCELLED",
+      "pass": true
+    }
+  ],
+  "limits": [
+    "Precise server-arrival simultaneity was not measured for the competing browser submissions",
+    "Synthetic fixture records are excluded from operational/pilot counts",
+    "No existing restaurant approval states were changed",
+    "No signup password or session token is exported"
+  ],
+  "finalQaOwnerLoggedOut": true
+}

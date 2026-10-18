@@ -1,0 +1,96 @@
+{
+  "startedAt": "2026-10-18T06:58:23.074Z",
+  "finishedAt": "2026-10-18T06:58:34.211Z",
+  "completed": true,
+  "commit": "e60f030a78851bdbfd0891c62a533e4aafe1100a",
+  "environment": {
+    "os": "win32",
+    "node": "v24.12.0",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-1235U",
+    "memoryGiB": 7.7,
+    "clientLocation": "User Windows computer in Asia/Dhaka; WAN measurements"
+  },
+  "dataset": {
+    "source": "Public approved records currently served by deployed Atlas-backed API",
+    "provenance": "Unknown seed/demo/genuine mixture; not evidence of genuine customer adoption",
+    "approvedRestaurants": 8,
+    "excludedQaRestaurants": 0
+  },
+  "method": {
+    "durationSecondsPerLevel": 3,
+    "concurrencyLevels": [
+      1
+    ],
+    "repeatsPerLevel": 1,
+    "warmupRequestsPerLevel": 10,
+    "perWorkerMaximumRequestsPerSecond": 1,
+    "globalMaximumWorkers": 5,
+    "requestTimeoutMs": 10000,
+    "mix": "50% cuisine listing, 50% availability; alternating Vercel proxy/direct Render; full response body consumed",
+    "workload": "Paced closed-loop read-only workload; not maximum sustainable capacity or a write-contention test",
+    "failureStop": "10 consecutive failures or >10% failures after at least 20 measured requests",
+    "warmup": "Warm-up latency excluded from measured percentiles; raw warm-up samples retained"
+  },
+  "limitations": [
+    "Existing record provenance unknown",
+    "Only one run per load level",
+    "Small dataset",
+    "Client/network latency included",
+    "No maximum-capacity or write-load claim",
+    "Not a genuine-user pilot"
+  ],
+  "runs": [
+    {
+      "concurrency": 1,
+      "seconds": 3.002,
+      "requests": 3,
+      "errors": 0,
+      "p50Ms": 703.73,
+      "p95Ms": 1111.83,
+      "p99Ms": 1111.83,
+      "maxMs": 1111.83,
+      "requestsPerSecond": 0.999,
+      "byTarget": {
+        "vercel-proxy": {
+          "requests": 2,
+          "errors": 0,
+          "p50Ms": 521.67,
+          "p95Ms": 1111.83,
+          "p99Ms": 1111.83,
+          "maxMs": 1111.83
+        },
+        "direct-render": {
+          "requests": 1,
+          "errors": 0,
+          "p50Ms": 703.73,
+          "p95Ms": 703.73,
+          "p99Ms": 703.73,
+          "maxMs": 703.73
+        }
+      },
+      "byEndpoint": {
+        "cuisine-listing": {
+          "requests": 1,
+          "errors": 0,
+          "p50Ms": 521.67,
+          "p95Ms": 521.67,
+          "p99Ms": 521.67,
+          "maxMs": 521.67
+        },
+        "availability": {
+          "requests": 2,
+          "errors": 0,
+          "p50Ms": 703.73,
+          "p95Ms": 1111.83,
+          "p99Ms": 1111.83,
+          "maxMs": 1111.83
+        }
+      }
+    }
+  ],
+  "discovery": {
+    "status": 200,
+    "latencyMs": 1294.99
+  },
+  "date": "2026-10-19"
+}

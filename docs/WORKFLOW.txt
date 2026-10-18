@@ -80,25 +80,30 @@ OUTPUT: frontend URL + direct API URL + readiness URL + deployment IDs.
 STEP 7 - LIVE SMOKE TEST
 [x] Check frontend HTTPS, nested-route refresh, direct API and readiness.
 [x] Register -> login -> refresh -> logout in a real browser.
-[ ] Owner creates pending restaurant -> admin approves -> diner sees it.
+[x] Owner creates pending restaurant -> admin approves -> diner sees it.
 [x] Filter cuisine -> view availability -> book with edited contacts.
 [x] Reload -> verify saved contact details and lower remaining capacity.
-[ ] Reject invalid/overcapacity request -> cancel -> verify seats return.
-[ ] Verify forbidden owner/admin actions and inspect logs.
+[x] Reject invalid/overcapacity request -> cancel -> verify seats return.
+[x] Verify owner/admin role guards for the recorded live flows.
+    See VERIFICATION_RESULTS_2026-10-18.md; no comprehensive security-audit claim.
 [x] Record timestamp, expected/actual results and sanitized evidence.
 [x] Replace report/README LINK placeholders with verified URLs.
 OUTPUT: smoke-test table; all critical flows pass.
 IF FAILED: repair deployment/code and repeat affected end-to-end flow.
 
 STEP 8 - COLLECT RESULTS
+[x] Audit existing Atlas operational records and exclude labelled QA fixtures.
+    User cannot establish genuine/seed provenance; retain that explicit limit.
 [ ] Count actual pilot users, restaurants and bookings by status.
 [ ] Record collection period/provenance; anonymize personal information.
 [x] Keep synthetic fixtures/load traffic separate from genuine usage.
 [x] Compare API capacity with an independent confirmed-booking total.
-[ ] Run concurrent booking experiments and inspect persisted totals.
+[x] Run competing browser booking submissions and inspect persisted totals.
 [ ] Load test staging at 1/5/10/20 virtual users, subject to host capacity.
+[x] Completed bounded production reads at 1/3/5 workers for five minutes each.
+    Accepted 2633/2633 requests; interrupted phase retained separately.
 [ ] Proposed run: 1-minute warm-up + 5-minute measurement; 3 repeats.
-[ ] Save p50/p95/p99, throughput, errors, counts and environment details.
+[x] Save p50/p95/p99, throughput, errors, counts and environment details.
 [ ] Separate cold starts and expected capacity conflicts from failures.
 OUTPUT: raw data + reproducible scripts + tables/charts + limitations.
 RULE: no real data available means disclose the gap, not invent users.

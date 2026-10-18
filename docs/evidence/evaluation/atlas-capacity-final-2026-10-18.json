@@ -1,0 +1,1185 @@
+{
+  "capturedAt": "2026-10-18T07:13:48.707Z",
+  "source": "Existing deployed Atlas database, read-only queries; direct Render availability API",
+  "provenance": "User cannot establish seed/demo/genuine provenance. Operational records are NOT claimed to be genuine pilot participants.",
+  "exclusions": {
+    "rule": "Explicit QA/smoke/synthetic names or booking notes, and their referenced records; seed/demo records of unknown provenance remain labelled unknown",
+    "users": 2,
+    "restaurants": 1,
+    "bookings": 4
+  },
+  "databaseTotals": {
+    "users": 13,
+    "restaurants": 11,
+    "bookings": 9
+  },
+  "qaCleanup": {
+    "restaurantStatuses": {
+      "rejected": 1
+    },
+    "bookingStatuses": {
+      "cancelled": 3,
+      "completed": 1
+    },
+    "activeConfirmedBookings": 0
+  },
+  "operationalDataset": {
+    "users": 11,
+    "usersByRole": {
+      "admin": 1,
+      "owner": 5,
+      "user": 5
+    },
+    "restaurants": 10,
+    "restaurantsByStatus": {
+      "approved": 8,
+      "pending": 1,
+      "rejected": 1
+    },
+    "bookings": 5,
+    "bookingsByStatus": {
+      "cancelled": 3,
+      "confirmed": 2
+    },
+    "storedBookingCreationRange": {
+      "first": "2026-08-10T16:32:21.866Z",
+      "last": "2026-08-28T03:10:21.888Z"
+    },
+    "seedIdentityMatches": 3,
+    "bookingsLinkedToSeedIdentities": 3,
+    "seedIdentityMethod": "Exact email match to identities defined in committed seed.ts; only aggregate counts exported. Other records remain unknown, not verified genuine."
+  },
+  "historicalAudit": {
+    "confirmedSlotGroups": 2,
+    "historicalConfirmedSlotGroups": 2,
+    "groupsOverCurrentCapacity": 0,
+    "note": "Past dates are rejected by public availability validation; historical groups audited by independent database aggregation, not reported as live API comparisons"
+  },
+  "liveCapacityComparison": {
+    "dates": [
+      "2026-10-18",
+      "2026-10-19"
+    ],
+    "comparedSlots": 110,
+    "matchingSlots": 110,
+    "agreementPercent": 100,
+    "nonzeroConfirmedSlots": 0,
+    "oracle": "Read-only persisted confirmed bookings, summed independently of the application; no code shared with its capacity service",
+    "comparisons": [
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "22:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "77a1b0747bd3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "22:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "12:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "13:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "12:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "13:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "b8ff12e35d3f",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 25,
+        "actualAvailableSeats": 25,
+        "match": true
+      },
+      {
+        "restaurantKey": "e0b170ca2594",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 30,
+        "actualAvailableSeats": 30,
+        "match": true
+      },
+      {
+        "restaurantKey": "e0b170ca2594",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 30,
+        "actualAvailableSeats": 30,
+        "match": true
+      },
+      {
+        "restaurantKey": "e0b170ca2594",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 30,
+        "actualAvailableSeats": 30,
+        "match": true
+      },
+      {
+        "restaurantKey": "e0b170ca2594",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 30,
+        "actualAvailableSeats": 30,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "11:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "13:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "14:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "11:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "13:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "14:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "a6b30dccbc63",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 35,
+        "actualAvailableSeats": 35,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "22:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "520c8d68d64a",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "22:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 40,
+        "actualAvailableSeats": 40,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "5b0521ee92b3",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 45,
+        "actualAvailableSeats": 45,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "c0edf8842a42",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 20,
+        "actualAvailableSeats": 20,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "18:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "19:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-18",
+        "time": "21:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "17:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "18:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "19:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "20:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:00",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      },
+      {
+        "restaurantKey": "527a76ede742",
+        "syntheticFixture": false,
+        "date": "2026-10-19",
+        "time": "21:30",
+        "confirmedGuests": 0,
+        "expectedAvailableSeats": 15,
+        "actualAvailableSeats": 15,
+        "match": true
+      }
+    ]
+  },
+  "controlledQaFixtureComparison": {
+    "comparedSlots": 0,
+    "matchingSlots": 0,
+    "nonzeroConfirmedSlots": 0,
+    "comparisons": [],
+    "note": "Synthetic deployed workflow experiment; excluded from operational dataset results"
+  },
+  "limitations": [
+    "Small dataset with unverified seed/demo/genuine origin",
+    "Empty future slots can make agreement easier; nonzeroConfirmedSlots reported explicitly",
+    "Database snapshot and API requests are not one atomic snapshot; concurrent user changes could produce differences",
+    "No personal contacts or user identifiers exported",
+    "No records were created, updated, or deleted by this audit"
+  ]
+}
