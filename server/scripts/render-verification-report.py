@@ -26,7 +26,7 @@ def inline(text):
     def link(match):
         label, url = match.groups()
         if not url.startswith('https://'):
-            url = 'https://github.com/ajshahria/Quick-Dine-/blob/codex/complete-live-verification/docs/' + url
+            url = 'https://github.com/ajshahria/Quick-Dine-/blob/live-verifcation-completed/docs/' + url
         return f'<link href="{url}" color="#155B88">{label}</link>'
     return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', link, text)
 
