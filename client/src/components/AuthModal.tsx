@@ -3,14 +3,7 @@ import { useAppContext } from "../context/AppContext.tsx";
 import { X, Mail, Lock, User, Phone } from "lucide-react";
 
 export default function AuthModal() {
-    const { isAuthModalOpen, authMode } = useAppContext();
-
-    // Unmount on close and remount on tab changes so credentials never carry over.
-    return isAuthModalOpen ? <AuthForm key={authMode} /> : null;
-}
-
-function AuthForm() {
-    const { setAuthModalOpen, authMode, setAuthMode, login, register } = useAppContext();
+    const { isAuthModalOpen, setAuthModalOpen, authMode, setAuthMode, login, register } = useAppContext();
     const isLoginTab = authMode === "login";
 
     // Form states
@@ -21,8 +14,8 @@ function AuthForm() {
     const [isOwner, setIsOwner] = useState<boolean>(false);
 
     const [formLoading, setFormLoading] = useState(false);
-    const [emailEditable, setEmailEditable] = useState(false);
-    const [passwordEditable, setPasswordEditable] = useState(false);
+
+    if (!isAuthModalOpen) return null;
 
     const resetForm = () => {
         setName("");
@@ -39,11 +32,6 @@ function AuthForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Read-only fields are excluded from native required-field validation.
-        if (!email.trim() || !password) {
-            e.currentTarget.querySelector<HTMLInputElement>(!email.trim() ? "#auth-email" : "#auth-password")?.focus();
-            return;
-        }
         setFormLoading(true);
 
         let success: boolean;
@@ -103,7 +91,7 @@ function AuthForm() {
                 </div>
 
                 {/* Form Content */}
-                <form onSubmit={handleSubmit} autoComplete="off" className="p-8 space-y-6 flex-1 flex flex-col justify-between">
+                <form onSubmit={handleSubmit} className="p-8 space-y-6 flex-1 flex flex-col justify-between">
                     <div>
                         <div className="text-center mb-8">
                             <h2 className="font-display text-2xl font-medium text-primary tracking-tight">Welcome to QuickDine</h2>
@@ -137,7 +125,7 @@ function AuthForm() {
 
                             {/* Email Field */}
                             <div className="space-y-1">
-                                <label htmlFor="auth-email" className="block text-left text-[10px] font-medium text-black/55 tracking-wider uppercase">
+                                <label className="block text-left text-[10px] font-medium text-black/55 tracking-wider uppercase">
                                     EMAIL ADDRESS
                                 </label>
                                 <div className="relative">
@@ -145,12 +133,8 @@ function AuthForm() {
                                         <Mail size={16} />
                                     </span>
                                     <input
-                                        id="auth-email"
                                         type="email"
                                         required
-                                        autoComplete="off"
-                                        readOnly={!emailEditable}
-                                        onFocus={() => setEmailEditable(true)}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="you@example.com"
@@ -182,7 +166,7 @@ function AuthForm() {
 
                             {/* Password Field */}
                             <div className="space-y-1">
-                                <label htmlFor="auth-password" className="block text-left text-[10px] font-medium text-black/55 tracking-wider uppercase">
+                                <label className="block text-left text-[10px] font-medium text-black/55 tracking-wider uppercase">
                                     PASSWORD
                                 </label>
                                 <div className="relative">
@@ -190,17 +174,13 @@ function AuthForm() {
                                         <Lock size={16} />
                                     </span>
                                     <input
-                                        id="auth-password"
                                         type="password"
                                         required
                                         minLength={isLoginTab ? 6 : 8}
-                                        // Suppress saved-password filling; unlock only on user focus.
-                                        autoComplete="new-password"
-                                        readOnly={!passwordEditable}
-                                        onFocus={() => setPasswordEditable(true)}
+                                        autoComplete={isLoginTab ? "current-password" : "new-password"}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Enter your password"
+                                        placeholder="••••••••"
                                         className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
                                     />
                                 </div>
