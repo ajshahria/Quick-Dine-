@@ -208,12 +208,12 @@ describe("complete page journeys",()=>{
     await userEvent.click(screen.getByRole("button",{name:"Clear All",exact:true}));expect(screen.getByPlaceholderText("Search cuisine or name...")).toHaveValue("");
   });
   it("real login modal submits and closes",async()=>{
-    wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByText("AUTHENTICATE"));await userEvent.type(screen.getByPlaceholderText("you@example.com"),"account@example.test");await userEvent.type(screen.getByPlaceholderText("••••••••"),"Password123!");
+    wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByText("AUTHENTICATE"));await userEvent.type(screen.getByPlaceholderText("you@example.com"),"account@example.test");await userEvent.type(screen.getByLabelText("PASSWORD"),"Password123!");
     commonPages();await userEvent.click(screen.getByRole("button",{name:"LOGIN",exact:true}));await screen.findByText(/Welcome back, Account/);expect(screen.queryByPlaceholderText("you@example.com")).not.toBeInTheDocument();
   });
   it("real registration modal sends owner choice and closes",async()=>{
     wrapper(<App/>,"/dashboard");await userEvent.click(await screen.findByText("AUTHENTICATE"));await userEvent.click(screen.getByRole("button",{name:"SIGN UP",exact:true}));
-    await userEvent.type(screen.getByPlaceholderText("Sarah Jenkins"),"New Owner");await userEvent.type(screen.getByPlaceholderText("you@example.com"),"new@example.test");await userEvent.type(screen.getByPlaceholderText("••••••••"),"Password123!");await userEvent.type(screen.getByPlaceholderText("+1 (555) 000-0000"),"01712345678");await userEvent.click(screen.getByLabelText("I am a Restaurant Owner / Manager"));
+    await userEvent.type(screen.getByPlaceholderText("Sarah Jenkins"),"New Owner");await userEvent.type(screen.getByPlaceholderText("you@example.com"),"new@example.test");await userEvent.type(screen.getByLabelText("PASSWORD"),"Password123!");await userEvent.type(screen.getByPlaceholderText("+1 (555) 000-0000"),"01712345678");await userEvent.click(screen.getByLabelText("I am a Restaurant Owner / Manager"));
     commonPages();await userEvent.click(screen.getByRole("button",{name:"CREATE ACCOUNT"}));await screen.findByText(/Welcome back, Account/);
   });
 });
